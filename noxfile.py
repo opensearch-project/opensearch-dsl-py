@@ -20,9 +20,7 @@ import nox
 SOURCE_FILES = (
     "setup.py",
     "noxfile.py",
-    "docs/",
     "elasticsearch_dsl/",
-    "examples/",
     "tests/",
     "utils/",
 )
