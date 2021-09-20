@@ -58,10 +58,7 @@ class MetricSearch(FacetedSearch):
 
 @pytest.fixture(scope="session")
 def commit_search_cls(es_version):
-    if es_version >= (7, 2):
-        interval_kwargs = {"fixed_interval": "1d"}
-    else:
-        interval_kwargs = {"interval": "day"}
+    interval_kwargs = {"fixed_interval": "1d"}
 
     class CommitSearch(FacetedSearch):
         index = "flat-git"
@@ -86,7 +83,7 @@ def commit_search_cls(es_version):
 
 @pytest.fixture(scope="session")
 def repo_search_cls(es_version):
-    interval_type = "calendar_interval" if es_version >= (7, 2) else "interval"
+    interval_type = "calendar_interval"
 
     class RepoSearch(FacetedSearch):
         index = "git"
@@ -107,7 +104,7 @@ def repo_search_cls(es_version):
 
 @pytest.fixture(scope="session")
 def pr_search_cls(es_version):
-    interval_type = "calendar_interval" if es_version >= (7, 2) else "interval"
+    interval_type = "calendar_interval"
 
     class PRSearch(FacetedSearch):
         index = "test-prs"
