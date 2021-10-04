@@ -46,16 +46,10 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
-        es-version: [7.10.0]
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v1
-      - name: Setup Elasticsearch
-        run: |
-          mkdir /tmp/elasticsearch
-          wget -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${{ matrix.es-version }}-linux-x86_64.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
-          /tmp/elasticsearch/bin/elasticsearch -d
       - name: Setup Python - ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
