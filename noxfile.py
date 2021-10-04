@@ -20,7 +20,7 @@ import nox
 SOURCE_FILES = (
     "setup.py",
     "noxfile.py",
-    "elasticsearch_dsl/",
+    "opensearch_dsl/",
     "tests/",
     "utils/",
 )
@@ -35,7 +35,7 @@ def test(session):
     else:
         argv = (
             "-vvv",
-            "--cov=elasticsearch_dsl",
+            "--cov=opensearch_dsl",
             "--cov=tests.test_integration.test_examples",
             "tests/",
         )

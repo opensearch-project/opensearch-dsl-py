@@ -18,7 +18,7 @@
 
 from pytest import raises
 
-from elasticsearch_dsl import analysis
+from opensearch_dsl import analysis
 
 
 def test_analyzer_serializes_as_name():

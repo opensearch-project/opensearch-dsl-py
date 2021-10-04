@@ -17,7 +17,7 @@
 
 from pytest import raises
 
-from elasticsearch_dsl import analysis, exceptions, mapping
+from opensearch_dsl import analysis, exceptions, mapping
 
 
 def test_mapping_saved_into_es(write_client):

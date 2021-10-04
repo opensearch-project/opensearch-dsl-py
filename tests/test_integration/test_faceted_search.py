@@ -19,8 +19,8 @@ from datetime import datetime
 
 import pytest
 
-from elasticsearch_dsl import A, Boolean, Date, Document, Keyword
-from elasticsearch_dsl.faceted_search import (
+from opensearch_dsl import A, Boolean, Date, Document, Keyword
+from opensearch_dsl.faceted_search import (
     DateHistogramFacet,
     FacetedSearch,
     NestedFacet,

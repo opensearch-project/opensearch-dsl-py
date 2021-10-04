@@ -19,7 +19,7 @@ from datetime import datetime
 
 import pytest
 
-from elasticsearch_dsl.faceted_search import (
+from opensearch_dsl.faceted_search import (
     DateHistogramFacet,
     FacetedSearch,
     TermsFacet,

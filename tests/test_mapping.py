@@ -17,7 +17,7 @@
 
 import json
 
-from elasticsearch_dsl import Keyword, Nested, Text, analysis, mapping
+from opensearch_dsl import Keyword, Nested, Text, analysis, mapping
 
 
 def test_mapping_can_has_fields():

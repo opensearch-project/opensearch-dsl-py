@@ -17,7 +17,7 @@
 
 from pytest import raises
 
-from elasticsearch_dsl import function, query
+from opensearch_dsl import function, query
 
 
 def test_empty_Q_is_match_all():

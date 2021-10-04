@@ -17,7 +17,7 @@
 
 from pytest import raises
 
-from elasticsearch_dsl import aggs, query
+from opensearch_dsl import aggs, query
 
 
 def test_repr():
