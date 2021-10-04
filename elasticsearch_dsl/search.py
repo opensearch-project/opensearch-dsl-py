@@ -22,8 +22,8 @@ try:
 except ImportError:
     import collections as collections_abc
 
-from elasticsearch.exceptions import TransportError
-from elasticsearch.helpers import scan
+from opensearchpy.exceptions import TransportError
+from opensearchpy.helpers import scan
 from six import iteritems, string_types
 
 from .aggs import A, AggBase
