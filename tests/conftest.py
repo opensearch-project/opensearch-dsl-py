@@ -21,9 +21,8 @@ import os
 import re
 from datetime import datetime
 
-from elasticsearch.helpers import bulk
-from elasticsearch.helpers.test import SkipTest, get_test_client
 from mock import Mock
+from opensearchpy.helpers import bulk
 from pytest import fixture, skip
 
 from opensearch_dsl.connections import add_connection, connections
@@ -40,8 +39,14 @@ from .test_integration.test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")
 def client():
+    os.environ["OPENSEARCH_URL"] = "http://localhost:9200/"
+
+    # import here because os.environ["OPENSEARCH_URL"] needs to be set before importing
+    # to ensure that it is being used by get_test_client function
+    from opensearchpy.helpers.test import SkipTest, get_test_client
+
     try:
-        connection = get_test_client(nowait="WAIT_FOR_ES" not in os.environ)
+        connection = get_test_client(nowait="WAIT_FOR_OS" not in os.environ)
         add_connection("default", connection)
         return connection
     except SkipTest:

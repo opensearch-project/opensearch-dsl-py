@@ -36,7 +36,6 @@ def test(session):
         argv = (
             "-vvv",
             "--cov=opensearch_dsl",
-            "--cov=tests.test_integration.test_examples",
             "tests/",
         )
     session.run("pytest", *argv)
@@ -67,10 +66,3 @@ def lint(session):
     session.run("isort", "--check", *SOURCE_FILES)
     session.run("flake8", "--ignore=E501,E741,W503", *SOURCE_FILES)
     session.run("python", "utils/license-headers.py", "check", *SOURCE_FILES)
-
-
-@nox.session()
-def docs(session):
-    session.install(".[develop]", "sphinx-rtd-theme")
-
-    session.run("sphinx-build", "docs/", "docs/_build", "-b", "html")

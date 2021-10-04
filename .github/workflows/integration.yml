@@ -1,0 +1,30 @@
+name: Integration tests
+
+on: [push, pull_request]
+
+jobs:
+  integration:
+    name: Integ
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cluster: ["opendistro", "opensearch"]
+        secured: ["false"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Clean docker containers
+        run: |
+          docker volume prune --force
+          docker network prune --force
+          docker system prune --volumes --force
+      - name: Launch ${{ matrix.cluster }} cluster
+        run: |
+          docker-compose --project-directory .ci/${{ matrix.cluster }} build
+          docker-compose --project-directory .ci/${{ matrix.cluster }} up -d
+      - name: Install Nox
+        run: pip install nox
+      - name: Integ ${{ matrix.cluster }} secured=${{ matrix.secured }}
+        run: nox -rs test-3.8

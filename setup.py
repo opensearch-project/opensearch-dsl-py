@@ -45,6 +45,7 @@ develop_requires = [
     "coverage<5.0.0",
     "sphinx",
     "sphinx_rtd_theme",
+    "opensearch-py",
 ]
 
 setup(
