@@ -19,11 +19,7 @@ from datetime import datetime
 
 import pytest
 
-from opensearch_dsl.faceted_search import (
-    DateHistogramFacet,
-    FacetedSearch,
-    TermsFacet,
-)
+from opensearch_dsl.faceted_search import DateHistogramFacet, FacetedSearch, TermsFacet
 
 
 class BlogSearch(FacetedSearch):
