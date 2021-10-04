@@ -18,7 +18,7 @@
 
 from __future__ import unicode_literals
 
-from elasticsearch import TransportError
+from opensearchpy import TransportError
 from pytest import raises
 
 from elasticsearch_dsl import Date, Document, Keyword, MultiSearch, Q, Search, Text

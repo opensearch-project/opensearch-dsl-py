@@ -19,7 +19,7 @@ from datetime import datetime
 from ipaddress import ip_address
 
 import pytest
-from elasticsearch import ConflictError, NotFoundError
+from opensearchpy import ConflictError, NotFoundError
 from pytest import raises
 from pytz import timezone
 

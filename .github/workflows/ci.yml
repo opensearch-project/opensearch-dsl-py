@@ -46,7 +46,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9]
-        es-version: [7.0.0, 7.10.0]
+        es-version: [7.10.0]
 
     steps:
       - name: Checkout Repository
@@ -65,7 +65,7 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.8
-      - name: Install dependencies
+      - name: Install nox
         run: |
           python3.8 -m pip install nox
       - name: Run Tests
