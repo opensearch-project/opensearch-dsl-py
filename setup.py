@@ -49,8 +49,8 @@ setup(
     version=__versionstr__,
     author="Honza Král, Guian Gumpac",
     author_email="honza.kral@gmail.com, guiang@bitquilltech.com",
-    maintainer="Seth Michael Larson, Charlene Solonynka, Yury Fridlyan, Guian Gumpac",
-    maintainer_email="seth.larson@elastic.co, charlenes@bitquilltech.com, yuryf@bitquilltech.com, guiang@bitquilltech.com",
+    maintainer="Charlene Solonynka, Yury Fridlyand, Guian Gumpac",
+    maintainer_email="charlenes@bitquilltech.com, yuryf@bitquilltech.com, guiang@bitquilltech.com",
     packages=find_packages(where=".", exclude=("tests*",)),
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     classifiers=[
