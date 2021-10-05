@@ -12,8 +12,8 @@ from .aggs import A
 from .analysis import analyzer, char_filter, normalizer, token_filter, tokenizer
 from .document import Document, InnerDoc, MetaField
 from .exceptions import (
-    OpenSearchDslException,
     IllegalOperation,
+    OpenSearchDslException,
     UnknownDslObject,
     ValidationException,
 )
