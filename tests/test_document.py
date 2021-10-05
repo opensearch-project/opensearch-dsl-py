@@ -134,7 +134,7 @@ def test_range_deserializes_properly():
     class D(document.InnerDoc):
         lr = field.LongRange()
 
-    d = D.from_es({"lr": {"lt": 42}}, True)
+    d = D.from_opensearch({"lr": {"lt": 42}}, True)
     assert isinstance(d.lr, Range)
     assert 40 in d.lr
     assert 47 not in d.lr
@@ -209,7 +209,7 @@ def test_custom_field():
     assert {"title": "Uryyb"} == s.to_dict()
     assert s.title == "Hello"
 
-    s = SecretDoc.from_es({"_source": {"title": "Uryyb"}})
+    s = SecretDoc.from_opensearch({"_source": {"title": "Uryyb"}})
     assert s.title == "Hello"
     assert isinstance(s.title, Secret)
 
@@ -588,7 +588,7 @@ def test_search_with_custom_alias_and_index(mock_client):
     assert search_object._index == ["custom_index1", "custom_index2"]
 
 
-def test_from_es_respects_underscored_non_meta_fields():
+def test_from_opensearch_respects_underscored_non_meta_fields():
     doc = {
         "_index": "test-index",
         "_id": "elasticsearch",
@@ -605,7 +605,7 @@ def test_from_es_respects_underscored_non_meta_fields():
         class Index:
             name = "test-company"
 
-    c = Company.from_es(doc)
+    c = Company.from_opensearch(doc)
 
     assert c.meta.fields._tags == ["search"]
     assert c.meta.fields._routing == "es"

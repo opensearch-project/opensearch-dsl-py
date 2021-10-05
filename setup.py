@@ -23,7 +23,7 @@ f.close()
 install_requires = [
     "six",
     "python-dateutil",
-    "elasticsearch>=7.0.0,<8.0.0",
+    "opensearch-py>=1.0.0",
     # ipaddress is included in stdlib since python 3.3
     'ipaddress; python_version<"3.3"',
 ]
@@ -37,21 +37,20 @@ develop_requires = [
     "coverage<5.0.0",
     "sphinx",
     "sphinx_rtd_theme",
-    "opensearch-py",
 ]
 
 setup(
-    name="elasticsearch-dsl",
-    description="Python client for Elasticsearch",
+    name="opensearch-dsl",
+    description="Python client for OpenSearch",
     license="Apache-2.0",
-    url="https://github.com/elasticsearch/elasticsearch-dsl-py",
+    url="https://github.com/opensearch-project/opensearch-dsl-py",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     version=__versionstr__,
-    author="Honza Král",
-    author_email="honza.kral@gmail.com",
-    maintainer="Seth Michael Larson",
-    maintainer_email="seth.larson@elastic.co",
+    author="Honza Král, Guian Gumpac",
+    author_email="honza.kral@gmail.com, guiang@bitquilltech.com",
+    maintainer="Seth Michael Larson, Charlene Solonynka, Yury Fridlyan, Guian Gumpac",
+    maintainer_email="seth.larson@elastic.co, charlenes@bitquilltech.com, yuryf@bitquilltech.com, guiang@bitquilltech.com",
     packages=find_packages(where=".", exclude=("tests*",)),
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     classifiers=[

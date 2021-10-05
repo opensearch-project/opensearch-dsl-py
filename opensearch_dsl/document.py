@@ -107,16 +107,16 @@ class InnerDoc(ObjectBase):
     """
 
     @classmethod
-    def from_es(cls, data, data_only=False):
+    def from_opensearch(cls, data, data_only=False):
         if data_only:
             data = {"_source": data}
-        return super(InnerDoc, cls).from_es(data)
+        return super(InnerDoc, cls).from_opensearch(data)
 
 
 @add_metaclass(IndexMeta)
 class Document(ObjectBase):
     """
-    Model-like class for persisting documents in elasticsearch.
+    Model-like class for persisting documents in opensearch.
     """
 
     @classmethod
@@ -140,7 +140,7 @@ class Document(ObjectBase):
     @classmethod
     def init(cls, index=None, using=None):
         """
-        Create the index and populate the mappings in elasticsearch.
+        Create the index and populate the mappings in opensearch.
         """
         i = cls._index
         if index:
@@ -171,7 +171,7 @@ class Document(ObjectBase):
     @classmethod
     def search(cls, using=None, index=None):
         """
-        Create an :class:`~elasticsearch_dsl.Search` instance that will search
+        Create an :class:`~opensearch_dsl.Search` instance that will search
         over this ``Document``.
         """
         return Search(
@@ -181,34 +181,34 @@ class Document(ObjectBase):
     @classmethod
     def get(cls, id, using=None, index=None, **kwargs):
         """
-        Retrieve a single document from elasticsearch using its ``id``.
+        Retrieve a single document from opensearch using its ``id``.
 
         :arg id: ``id`` of the document to be retrieved
-        :arg index: elasticsearch index to use, if the ``Document`` is
+        :arg index: opensearch index to use, if the ``Document`` is
             associated with an index this can be omitted.
         :arg using: connection alias to use, defaults to ``'default'``
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.get`` unchanged.
+        ``OpenSearch.get`` unchanged.
         """
         es = cls._get_connection(using)
         doc = es.get(index=cls._default_index(index), id=id, **kwargs)
         if not doc.get("found", False):
             return None
-        return cls.from_es(doc)
+        return cls.from_opensearch(doc)
 
     @classmethod
     def exists(cls, id, using=None, index=None, **kwargs):
         """
-        check if exists a single document from elasticsearch using its ``id``.
+        check if exists a single document from opensearch using its ``id``.
 
         :arg id: ``id`` of the document to check if exists
-        :arg index: elasticsearch index to use, if the ``Document`` is
+        :arg index: opensearch index to use, if the ``Document`` is
             associated with an index this can be omitted.
         :arg using: connection alias to use, defaults to ``'default'``
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.exists`` unchanged.
+        ``OpenSearch.exists`` unchanged.
         """
         es = cls._get_connection(using)
         return es.exists(index=cls._default_index(index), id=id, **kwargs)
@@ -223,8 +223,8 @@ class Document(ObjectBase):
 
         :arg docs: list of ``id``\s of the documents to be retrieved or a list
             of document specifications as per
-            https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-multi-get.html
-        :arg index: elasticsearch index to use, if the ``Document`` is
+            https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/multi-get/
+        :arg index: opensearch index to use, if the ``Document`` is
             associated with an index this can be omitted.
         :arg using: connection alias to use, defaults to ``'default'``
         :arg missing: what to do when one of the documents requested is not
@@ -232,7 +232,7 @@ class Document(ObjectBase):
             ``NotFoundError``) or ``'skip'`` (ignore the missing document).
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.mget`` unchanged.
+        ``OpenSearch.mget`` unchanged.
         """
         if missing not in ("raise", "skip", "none"):
             raise ValueError("'missing' must be 'raise', 'skip', or 'none'.")
@@ -250,10 +250,10 @@ class Document(ObjectBase):
             if doc.get("found"):
                 if error_docs or missing_docs:
                     # We're going to raise an exception anyway, so avoid an
-                    # expensive call to cls.from_es().
+                    # expensive call to cls.from_opensearch().
                     continue
 
-                objs.append(cls.from_es(doc))
+                objs.append(cls.from_opensearch(doc))
 
             elif doc.get("error"):
                 if raise_on_error:
@@ -280,14 +280,14 @@ class Document(ObjectBase):
 
     def delete(self, using=None, index=None, **kwargs):
         """
-        Delete the instance in elasticsearch.
+        Delete the instance in opensearch.
 
-        :arg index: elasticsearch index to use, if the ``Document`` is
+        :arg index: opensearch index to use, if the ``Document`` is
             associated with an index this can be omitted.
         :arg using: connection alias to use, defaults to ``'default'``
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.delete`` unchanged.
+        ``OpenSearch.delete`` unchanged.
         """
         es = self._get_connection(using)
         # extract routing etc from meta
@@ -303,15 +303,15 @@ class Document(ObjectBase):
 
     def to_dict(self, include_meta=False, skip_empty=True):
         """
-        Serialize the instance into a dictionary so that it can be saved in elasticsearch.
+        Serialize the instance into a dictionary so that it can be saved in opensearch.
 
         :arg include_meta: if set to ``True`` will include all the metadata
             (``_index``, ``_id`` etc). Otherwise just the document's
             data is serialized. This is useful when passing multiple instances into
-            ``elasticsearch.helpers.bulk``.
+            ``opensearchpy.helpers.bulk``.
         :arg skip_empty: if set to ``False`` will cause empty values (``None``,
             ``[]``, ``{}``) to be left on the document. Those values will be
-            stripped out otherwise as they make no difference in elasticsearch.
+            stripped out otherwise as they make no difference in opensearch.
         """
         d = super(Document, self).to_dict(skip_empty=skip_empty)
         if not include_meta:
@@ -344,13 +344,13 @@ class Document(ObjectBase):
     ):
         """
         Partial update of the document, specify fields you wish to update and
-        both the instance and the document in elasticsearch will be updated::
+        both the instance and the document in opensearch will be updated::
 
             doc = MyDocument(title='Document Title!')
             doc.save()
             doc.update(title='New Document Title!')
 
-        :arg index: elasticsearch index to use, if the ``Document`` is
+        :arg index: opensearch index to use, if the ``Document`` is
             associated with an index this can be omitted.
         :arg using: connection alias to use, defaults to ``'default'``
         :arg detect_noop: Set to ``False`` to disable noop detection.
@@ -442,22 +442,22 @@ class Document(ObjectBase):
         **kwargs
     ):
         """
-        Save the document into elasticsearch. If the document doesn't exist it
+        Save the document into opensearch. If the document doesn't exist it
         is created, it is overwritten otherwise. Returns ``True`` if this
         operations resulted in new document being created.
 
-        :arg index: elasticsearch index to use, if the ``Document`` is
+        :arg index: opensearch index to use, if the ``Document`` is
             associated with an index this can be omitted.
         :arg using: connection alias to use, defaults to ``'default'``
         :arg validate: set to ``False`` to skip validating the document
         :arg skip_empty: if set to ``False`` will cause empty values (``None``,
             ``[]``, ``{}``) to be left on the document. Those values will be
-            stripped out otherwise as they make no difference in elasticsearch.
+            stripped out otherwise as they make no difference in opensearch.
         :arg return_doc_meta: set to ``True`` to return all metadata from the
             update API call instead of only the operation result
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.index`` unchanged.
+        ``OpenSearch.index`` unchanged.
 
         :return operation result created/updated
         """

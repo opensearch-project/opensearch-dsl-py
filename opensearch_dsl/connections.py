@@ -7,7 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from elasticsearch import Elasticsearch
+from opensearchpy import OpenSearch
 from six import string_types
 
 from .serializer import serializer
@@ -69,11 +69,11 @@ class Connections(object):
 
     def create_connection(self, alias="default", **kwargs):
         """
-        Construct an instance of ``elasticsearch.Elasticsearch`` and register
+        Construct an instance of ``opensearchpy.OpenSearch`` and register
         it under given alias.
         """
         kwargs.setdefault("serializer", serializer)
-        conn = self._conns[alias] = Elasticsearch(**kwargs)
+        conn = self._conns[alias] = OpenSearch(**kwargs)
         return conn
 
     def get_connection(self, alias="default"):
@@ -85,7 +85,7 @@ class Connections(object):
         Raises ``KeyError`` if no client (or its definition) is registered
         under the alias.
         """
-        # do not check isinstance(Elasticsearch) so that people can wrap their
+        # do not check isinstance(OpenSearch) so that people can wrap their
         # clients
         if not isinstance(alias, string_types):
             return alias

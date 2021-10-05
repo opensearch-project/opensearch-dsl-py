@@ -115,7 +115,7 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
 
     def simulate(self, text, using="default", explain=False, attributes=None):
         """
-        Use the Analyze API of elasticsearch to test the outcome of this analyzer.
+        Use the Analyze API of opensearch to test the outcome of this analyzer.
 
         :arg text: Text to be analyzed
         :arg using: connection alias to use, defaults to ``'default'``

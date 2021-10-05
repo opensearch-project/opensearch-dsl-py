@@ -7,7 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from elasticsearch import Elasticsearch
+from opensearchpy import OpenSearch
 from pytest import raises
 
 from opensearch_dsl import connections, serializer
@@ -31,8 +31,8 @@ def test_get_connection_created_connection_if_needed():
     default = c.get_connection()
     local = c.get_connection("local")
 
-    assert isinstance(default, Elasticsearch)
-    assert isinstance(local, Elasticsearch)
+    assert isinstance(default, OpenSearch)
+    assert isinstance(local, OpenSearch)
 
     assert [{"host": "es.com"}] == default.transport.hosts
     assert [{"host": "localhost"}] == local.transport.hosts

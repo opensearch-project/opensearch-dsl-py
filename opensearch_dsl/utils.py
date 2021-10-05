@@ -33,7 +33,7 @@ DOC_META_FIELDS = frozenset(
 
 META_FIELDS = frozenset(
     (
-        # Elasticsearch metadata fields, except 'type'
+        # OpenSearch metadata fields, except 'type'
         "index",
         "using",
         "score",
@@ -199,7 +199,7 @@ class DslMeta(type):
     `shortcut` attributes from the base class) to construct any subclass based
     on it's name.
 
-    For typical use see `QueryMeta` and `Query` in `elasticsearch_dsl.query`.
+    For typical use see `QueryMeta` and `Query` in `opensearch_dsl.query`.
     """
 
     _types = {}
@@ -236,7 +236,7 @@ class DslBase(object):
     Provides several feature:
         - attribute access to the wrapped dictionary (.field instead of ['field'])
         - _clone method returning a copy of self
-        - to_dict method to serialize into dict (to be sent via elasticsearch-py)
+        - to_dict method to serialize into dict (to be sent via opensearch-py)
         - basic logical operators (&, | and ~) using a Bool(Filter|Query) TODO:
           move into a class specific for Query/Filter
         - respects the definition of the class and (de)serializes it's
@@ -453,7 +453,7 @@ class ObjectBase(AttrDict):
                     pass
 
     @classmethod
-    def from_es(cls, hit):
+    def from_opensearch(cls, hit):
         meta = hit.copy()
         data = meta.pop("_source", {})
         doc = cls(meta=meta)

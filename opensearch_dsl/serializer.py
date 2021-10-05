@@ -7,7 +7,7 @@
 # Modifications Copyright OpenSearch Contributors. See
 # GitHub history for details.
 
-from elasticsearch.serializer import JSONSerializer
+from opensearchpy.serializer import JSONSerializer
 
 from .utils import AttrList
 

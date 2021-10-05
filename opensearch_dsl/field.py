@@ -147,8 +147,6 @@ class Object(Field):
         :arg dynamic: whether new properties may be created dynamically.
             Valid values are `True`, `False`, `'strict'`.
             Can not be provided together with `doc_class`.
-            See https://www.elastic.co/guide/en/elasticsearch/reference/current/dynamic.html
-            for more details
         :arg dict properties: used to construct underlying mapping if no `doc_class` is provided.
             Can not be provided together with `doc_class`
         """
@@ -182,7 +180,7 @@ class Object(Field):
         return self._wrap({})
 
     def _wrap(self, data):
-        return self._doc_class.from_es(data, data_only=True)
+        return self._doc_class.from_opensearch(data, data_only=True)
 
     def empty(self):
         if self._multi:

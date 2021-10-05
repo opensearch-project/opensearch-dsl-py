@@ -84,7 +84,7 @@ def test_mapping_saved_into_es_when_index_already_exists_with_analysis(write_cli
     } == write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_gets_updated_from_es(write_client):
+def test_mapping_gets_updated_from_opensearch(write_client):
     write_client.indices.create(
         index="test-mapping",
         body={
@@ -114,7 +114,7 @@ def test_mapping_gets_updated_from_es(write_client):
         },
     )
 
-    m = mapping.Mapping.from_es("test-mapping", using=write_client)
+    m = mapping.Mapping.from_opensearch("test-mapping", using=write_client)
 
     assert ["comments", "created_at", "title"] == list(
         sorted(m.properties.properties._d_.keys())
@@ -145,5 +145,5 @@ def test_mapping_gets_updated_from_es(write_client):
     # test same with alias
     write_client.indices.put_alias(index="test-mapping", name="test-alias")
 
-    m2 = mapping.Mapping.from_es("test-alias", using=write_client)
+    m2 = mapping.Mapping.from_opensearch("test-alias", using=write_client)
     assert m2.to_dict() == m.to_dict()
