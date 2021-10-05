@@ -43,8 +43,10 @@ class IndexTemplate(object):
 
     def save(self, using=None):
 
-        es = get_connection(using or self._index._using)
-        return es.indices.put_template(name=self._template_name, body=self.to_dict())
+        opensearch = get_connection(using or self._index._using)
+        return opensearch.indices.put_template(
+            name=self._template_name, body=self.to_dict()
+        )
 
 
 class Index(object):

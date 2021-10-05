@@ -191,8 +191,8 @@ class Document(ObjectBase):
         Any additional keyword arguments will be passed to
         ``OpenSearch.get`` unchanged.
         """
-        es = cls._get_connection(using)
-        doc = es.get(index=cls._default_index(index), id=id, **kwargs)
+        opensearch = cls._get_connection(using)
+        doc = opensearch.get(index=cls._default_index(index), id=id, **kwargs)
         if not doc.get("found", False):
             return None
         return cls.from_opensearch(doc)
@@ -210,8 +210,8 @@ class Document(ObjectBase):
         Any additional keyword arguments will be passed to
         ``OpenSearch.exists`` unchanged.
         """
-        es = cls._get_connection(using)
-        return es.exists(index=cls._default_index(index), id=id, **kwargs)
+        opensearch = cls._get_connection(using)
+        return opensearch.exists(index=cls._default_index(index), id=id, **kwargs)
 
     @classmethod
     def mget(
@@ -236,14 +236,14 @@ class Document(ObjectBase):
         """
         if missing not in ("raise", "skip", "none"):
             raise ValueError("'missing' must be 'raise', 'skip', or 'none'.")
-        es = cls._get_connection(using)
+        opensearch = cls._get_connection(using)
         body = {
             "docs": [
                 doc if isinstance(doc, collections_abc.Mapping) else {"_id": doc}
                 for doc in docs
             ]
         }
-        results = es.mget(body, index=cls._default_index(index), **kwargs)
+        results = opensearch.mget(body, index=cls._default_index(index), **kwargs)
 
         objs, error_docs, missing_docs = [], [], []
         for doc in results["docs"]:
@@ -289,7 +289,7 @@ class Document(ObjectBase):
         Any additional keyword arguments will be passed to
         ``OpenSearch.delete`` unchanged.
         """
-        es = self._get_connection(using)
+        opensearch = self._get_connection(using)
         # extract routing etc from meta
         doc_meta = {k: self.meta[k] for k in DOC_META_FIELDS if k in self.meta}
 
@@ -299,7 +299,7 @@ class Document(ObjectBase):
             doc_meta["if_primary_term"] = self.meta["primary_term"]
 
         doc_meta.update(kwargs)
-        es.delete(index=self._get_index(index), **doc_meta)
+        opensearch.delete(index=self._get_index(index), **doc_meta)
 
     def to_dict(self, include_meta=False, skip_empty=True):
         """
@@ -401,7 +401,7 @@ class Document(ObjectBase):
             # update given fields locally
             merge(self, fields)
 
-            # prepare data for ES
+            # prepare data for OpenSearch
             values = self.to_dict()
 
             # if fields were given: partial update
@@ -425,7 +425,7 @@ class Document(ObjectBase):
         meta = self._get_connection(using).update(
             index=self._get_index(index), body=body, refresh=refresh, **doc_meta
         )
-        # update meta information from ES
+        # update meta information from OpenSearch
         for k in META_FIELDS:
             if "_" + k in meta:
                 setattr(self.meta, k, meta["_" + k])
@@ -464,7 +464,7 @@ class Document(ObjectBase):
         if validate:
             self.full_clean()
 
-        es = self._get_connection(using)
+        opensearch = self._get_connection(using)
         # extract routing etc from meta
         doc_meta = {k: self.meta[k] for k in DOC_META_FIELDS if k in self.meta}
 
@@ -474,12 +474,12 @@ class Document(ObjectBase):
             doc_meta["if_primary_term"] = self.meta["primary_term"]
 
         doc_meta.update(kwargs)
-        meta = es.index(
+        meta = opensearch.index(
             index=self._get_index(index),
             body=self.to_dict(skip_empty=skip_empty),
             **doc_meta
         )
-        # update meta information from ES
+        # update meta information from OpenSearch
         for k in META_FIELDS:
             if "_" + k in meta:
                 setattr(self.meta, k, meta["_" + k])

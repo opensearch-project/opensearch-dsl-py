@@ -33,7 +33,7 @@ class Connections(object):
 
             connections.configure(
                 default={'hosts': 'localhost'},
-                dev={'hosts': ['esdev1.example.com:9200'], 'sniff_on_start': True},
+                dev={'hosts': ['opensearchdev1.example.com:9200'], 'sniff_on_start': True},
             )
 
         Connections will only be constructed lazily when requested through

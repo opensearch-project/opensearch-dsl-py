@@ -160,8 +160,8 @@ class Mapping(object):
         return index.save()
 
     def update_from_opensearch(self, index, using="default"):
-        es = get_connection(using)
-        raw = es.indices.get_mapping(index=index)
+        opensearch = get_connection(using)
+        raw = opensearch.indices.get_mapping(index=index)
         _, raw = raw.popitem()
         self._update_from_dict(raw["mappings"])
 

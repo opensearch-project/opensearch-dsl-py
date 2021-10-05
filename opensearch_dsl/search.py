@@ -682,11 +682,11 @@ class Search(Request):
         if hasattr(self, "_response") and self._response.hits.total.relation == "eq":
             return self._response.hits.total.value
 
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
         d = self.to_dict(count=True)
         # TODO: failed shards detection
-        return es.count(index=self._index, body=d, **self._params)["count"]
+        return opensearch.count(index=self._index, body=d, **self._params)["count"]
 
     def execute(self, ignore_cache=False):
         """
@@ -697,10 +697,13 @@ class Search(Request):
             ES, while cached result will be ignored. Defaults to `False`
         """
         if ignore_cache or not hasattr(self, "_response"):
-            es = get_connection(self._using)
+            opensearch = get_connection(self._using)
 
             self._response = self._response_class(
-                self, es.search(index=self._index, body=self.to_dict(), **self._params)
+                self,
+                opensearch.search(
+                    index=self._index, body=self.to_dict(), **self._params
+                ),
             )
         return self._response
 
@@ -713,9 +716,11 @@ class Search(Request):
         pass to the underlying ``scan`` helper from ``opensearchpy``
 
         """
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
-        for hit in scan(es, query=self.to_dict(), index=self._index, **self._params):
+        for hit in scan(
+            opensearch, query=self.to_dict(), index=self._index, **self._params
+        ):
             yield self._get_result(hit)
 
     def delete(self):
@@ -723,10 +728,12 @@ class Search(Request):
         delete() executes the query by delegating to delete_by_query()
         """
 
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
         return AttrDict(
-            es.delete_by_query(index=self._index, body=self.to_dict(), **self._params)
+            opensearch.delete_by_query(
+                index=self._index, body=self.to_dict(), **self._params
+            )
         )
 
 
@@ -781,9 +788,9 @@ class MultiSearch(Request):
         Execute the multi search request and return a list of search results.
         """
         if ignore_cache or not hasattr(self, "_response"):
-            es = get_connection(self._using)
+            opensearch = get_connection(self._using)
 
-            responses = es.msearch(
+            responses = opensearch.msearch(
                 index=self._index, body=self.to_dict(), **self._params
             )
 

@@ -141,10 +141,12 @@ class UpdateByQuery(Request):
         Execute the search and return an instance of ``Response`` wrapping all
         the data.
         """
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
         self._response = self._response_class(
             self,
-            es.update_by_query(index=self._index, body=self.to_dict(), **self._params),
+            opensearch.update_by_query(
+                index=self._index, body=self.to_dict(), **self._params
+            ),
         )
         return self._response
