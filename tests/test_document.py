@@ -23,7 +23,7 @@ from hashlib import md5
 
 from pytest import raises
 
-from elasticsearch_dsl import (
+from opensearch_dsl import (
     Index,
     InnerDoc,
     Mapping,
@@ -33,7 +33,7 @@ from elasticsearch_dsl import (
     field,
     utils,
 )
-from elasticsearch_dsl.exceptions import IllegalOperation, ValidationException
+from opensearch_dsl.exceptions import IllegalOperation, ValidationException
 
 
 class MyInner(InnerDoc):

@@ -25,7 +25,7 @@ from mock import Mock
 from opensearchpy.helpers import bulk
 from pytest import fixture, skip
 
-from elasticsearch_dsl.connections import add_connection, connections
+from opensearch_dsl.connections import add_connection, connections
 
 from .test_integration.test_data import (
     DATA,
@@ -148,7 +148,7 @@ def dummy_response():
 
 @fixture
 def aggs_search():
-    from elasticsearch_dsl import Search
+    from opensearch_dsl import Search
 
     s = Search(index="flat-git")
     s.aggs.bucket("popular_files", "terms", field="files", size=2).metric(

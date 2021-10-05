@@ -20,7 +20,7 @@ from random import choice
 
 from pytest import raises
 
-from elasticsearch_dsl import Date, Document, Index, IndexTemplate, Text, analyzer
+from opensearch_dsl import Date, Document, Index, IndexTemplate, Text, analyzer
 
 
 class Post(Document):

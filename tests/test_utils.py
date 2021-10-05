@@ -19,7 +19,7 @@ import pickle
 
 from pytest import raises
 
-from elasticsearch_dsl import Q, serializer, utils
+from opensearch_dsl import Q, serializer, utils
 
 
 def test_attrdict_pickle():

@@ -22,7 +22,7 @@ from datetime import datetime
 import pytest
 from dateutil import tz
 
-from elasticsearch_dsl import InnerDoc, Range, ValidationException, field
+from opensearch_dsl import InnerDoc, Range, ValidationException, field
 
 
 def test_date_range_deserialization():

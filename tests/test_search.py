@@ -19,8 +19,8 @@ from copy import deepcopy
 
 from pytest import raises
 
-from elasticsearch_dsl import Document, Q, query, search
-from elasticsearch_dsl.exceptions import IllegalOperation
+from opensearch_dsl import Document, Q, query, search
+from opensearch_dsl.exceptions import IllegalOperation
 
 
 def test_expand__to_dot_is_respected():

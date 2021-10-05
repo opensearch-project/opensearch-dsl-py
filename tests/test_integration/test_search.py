@@ -21,8 +21,8 @@ from __future__ import unicode_literals
 from opensearchpy import TransportError
 from pytest import raises
 
-from elasticsearch_dsl import Date, Document, Keyword, MultiSearch, Q, Search, Text
-from elasticsearch_dsl.response import aggs
+from opensearch_dsl import Date, Document, Keyword, MultiSearch, Q, Search, Text
+from opensearch_dsl.response import aggs
 
 from .test_data import FLAT_DATA
 

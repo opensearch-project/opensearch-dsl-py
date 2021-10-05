@@ -20,9 +20,9 @@ from datetime import date
 
 from pytest import fixture, raises
 
-from elasticsearch_dsl import Date, Document, Object, Search, response
-from elasticsearch_dsl.aggs import Terms
-from elasticsearch_dsl.response.aggs import AggResponse, Bucket, BucketData
+from opensearch_dsl import Date, Document, Object, Search, response
+from opensearch_dsl.aggs import Terms
+from opensearch_dsl.response.aggs import AggResponse, Bucket, BucketData
 
 
 @fixture

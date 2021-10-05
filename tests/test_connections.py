@@ -18,7 +18,7 @@
 from elasticsearch import Elasticsearch
 from pytest import raises
 
-from elasticsearch_dsl import connections, serializer
+from opensearch_dsl import connections, serializer
 
 
 def test_default_connection_is_returned_by_default():

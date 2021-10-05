@@ -19,7 +19,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from elasticsearch_dsl import Range
+from opensearch_dsl import Range
 
 
 @pytest.mark.parametrize(

@@ -19,7 +19,7 @@ from datetime import datetime
 
 from pytest import raises
 
-from elasticsearch_dsl import (
+from opensearch_dsl import (
     Boolean,
     Date,
     Document,
@@ -29,7 +29,7 @@ from elasticsearch_dsl import (
     Object,
     Text,
 )
-from elasticsearch_dsl.exceptions import ValidationException
+from opensearch_dsl.exceptions import ValidationException
 
 
 class Author(InnerDoc):
