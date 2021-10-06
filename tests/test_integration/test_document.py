@@ -399,11 +399,11 @@ def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client):
 def test_update_works_from_search_response(data_client):
     opensearch_repo = Repository.search().execute()[0]
 
-    opensearch_repo.update(owner={"other_name": "opensearch"})
-    assert "opensearch" == opensearch_repo.owner.other_name
+    opensearch_repo.update(owner={"other_name": "opensearchpy"})
+    assert "opensearchpy" == opensearch_repo.owner.other_name
 
     new_version = Repository.get("opensearch-dsl-py")
-    assert "opensearch" == new_version.owner.other_name
+    assert "opensearchpy" == new_version.owner.other_name
     assert "opensearch" == new_version.owner.name
 
 
@@ -412,9 +412,9 @@ def test_update(data_client):
     v = opensearch_repo.meta.version
 
     old_seq_no = opensearch_repo.meta.seq_no
-    opensearch_repo.update(owner={"new_name": "opensearch"}, new_field="testing-update")
+    opensearch_repo.update(owner={"new_name": "opensearchpy"}, new_field="testing-update")
 
-    assert "opensearch" == opensearch_repo.owner.new_name
+    assert "opensearchpy" == opensearch_repo.owner.new_name
     assert "testing-update" == opensearch_repo.new_field
 
     # assert version has been updated
@@ -422,7 +422,7 @@ def test_update(data_client):
 
     new_version = Repository.get("opensearch-dsl-py")
     assert "testing-update" == new_version.new_field
-    assert "opensearch" == new_version.owner.new_name
+    assert "opensearchpy" == new_version.owner.new_name
     assert "opensearch" == new_version.owner.name
     assert "seq_no" in new_version.meta
     assert new_version.meta.seq_no != old_seq_no
