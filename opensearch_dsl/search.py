@@ -694,7 +694,7 @@ class Search(Request):
         the data.
 
         :arg ignore_cache: if set to ``True``, consecutive calls will hit
-            ES, while cached result will be ignored. Defaults to `False`
+            OpenSearch, while cached result will be ignored. Defaults to `False`
         """
         if ignore_cache or not hasattr(self, "_response"):
             opensearch = get_connection(self._using)
