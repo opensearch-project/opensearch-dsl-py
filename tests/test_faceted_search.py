@@ -75,13 +75,13 @@ def test_query_is_created_properly_with_sort_tuple():
 
 
 def test_filter_is_applied_to_search_but_not_relevant_facet():
-    bs = BlogSearch("python search", filters={"category": "elastic"})
+    bs = BlogSearch("python search", filters={"category": "opensearch"})
     s = bs.build_search()
 
     assert {
         "aggs": {
             "_filter_tags": {
-                "filter": {"terms": {"category.raw": ["elastic"]}},
+                "filter": {"terms": {"category.raw": ["opensearch"]}},
                 "aggs": {"tags": {"terms": {"field": "tags"}}},
             },
             "_filter_category": {
@@ -89,7 +89,7 @@ def test_filter_is_applied_to_search_but_not_relevant_facet():
                 "aggs": {"category": {"terms": {"field": "category.raw"}}},
             },
         },
-        "post_filter": {"terms": {"category.raw": ["elastic"]}},
+        "post_filter": {"terms": {"category.raw": ["opensearch"]}},
         "query": {
             "multi_match": {"fields": ("title^5", "body"), "query": "python search"}
         },
@@ -99,7 +99,7 @@ def test_filter_is_applied_to_search_but_not_relevant_facet():
 
 def test_filters_are_applied_to_search_ant_relevant_facets():
     bs = BlogSearch(
-        "python search", filters={"category": "elastic", "tags": ["python", "django"]}
+        "python search", filters={"category": "opensearch", "tags": ["python", "django"]}
     )
     s = bs.build_search()
 
@@ -108,13 +108,13 @@ def test_filters_are_applied_to_search_ant_relevant_facets():
     # we need to test post_filter without relying on order
     f = d["post_filter"]["bool"].pop("must")
     assert len(f) == 2
-    assert {"terms": {"category.raw": ["elastic"]}} in f
+    assert {"terms": {"category.raw": ["opensearch"]}} in f
     assert {"terms": {"tags": ["python", "django"]}} in f
 
     assert {
         "aggs": {
             "_filter_tags": {
-                "filter": {"terms": {"category.raw": ["elastic"]}},
+                "filter": {"terms": {"category.raw": ["opensearch"]}},
                 "aggs": {"tags": {"terms": {"field": "tags"}}},
             },
             "_filter_category": {

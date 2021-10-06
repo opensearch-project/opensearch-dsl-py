@@ -46,7 +46,7 @@ def client():
 
 
 @fixture(scope="session")
-def es_version(client):
+def opensearch_version(client):
     info = client.info()
     print(info)
     yield tuple(
@@ -94,16 +94,16 @@ def dummy_response():
                 {
                     "_index": "test-index",
                     "_type": "company",
-                    "_id": "elasticsearch",
+                    "_id": "opensearch",
                     "_score": 12.0,
-                    "_source": {"city": "Amsterdam", "name": "Elasticsearch"},
+                    "_source": {"city": "Amsterdam", "name": "OpenSearch"},
                 },
                 {
                     "_index": "test-index",
                     "_type": "employee",
                     "_id": "42",
                     "_score": 11.123,
-                    "_routing": "elasticsearch",
+                    "_routing": "opensearch",
                     "_source": {
                         "name": {"first": "Shay", "last": "Bannon"},
                         "lang": "java",
@@ -115,7 +115,7 @@ def dummy_response():
                     "_type": "employee",
                     "_id": "47",
                     "_score": 1,
-                    "_routing": "elasticsearch",
+                    "_routing": "opensearch",
                     "_source": {
                         "name": {"first": "Honza", "last": "Král"},
                         "lang": "python",
@@ -127,7 +127,7 @@ def dummy_response():
                     "_type": "employee",
                     "_id": "53",
                     "_score": 16.0,
-                    "_routing": "elasticsearch",
+                    "_routing": "opensearch",
                 },
             ],
             "max_score": 12.0,
@@ -184,7 +184,7 @@ def aggs_data():
             "popular_files": {
                 "buckets": [
                     {
-                        "key": "elasticsearch_dsl",
+                        "key": "opensearch_dsl",
                         "line_stats": {
                             "count": 40,
                             "max": 228.0,
@@ -233,7 +233,7 @@ def aggs_data():
                         },
                     },
                     {
-                        "key": "test_elasticsearch_dsl",
+                        "key": "test_opensearch_dsl",
                         "line_stats": {
                             "count": 35,
                             "max": 228.0,

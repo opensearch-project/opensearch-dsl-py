@@ -591,12 +591,12 @@ def test_search_with_custom_alias_and_index(mock_client):
 def test_from_opensearch_respects_underscored_non_meta_fields():
     doc = {
         "_index": "test-index",
-        "_id": "elasticsearch",
+        "_id": "opensearch",
         "_score": 12.0,
-        "fields": {"hello": "world", "_routing": "es", "_tags": ["search"]},
+        "fields": {"hello": "world", "_routing": "opensearch", "_tags": ["search"]},
         "_source": {
             "city": "Amsterdam",
-            "name": "Elasticsearch",
+            "name": "OpenSearch",
             "_tagline": "You know, for search",
         },
     }
@@ -608,7 +608,7 @@ def test_from_opensearch_respects_underscored_non_meta_fields():
     c = Company.from_opensearch(doc)
 
     assert c.meta.fields._tags == ["search"]
-    assert c.meta.fields._routing == "es"
+    assert c.meta.fields._routing == "opensearch"
     assert c._tagline == "You know, for search"
 
 

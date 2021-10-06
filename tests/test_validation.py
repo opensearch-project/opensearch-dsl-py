@@ -93,7 +93,7 @@ def test_field_with_custom_clean():
 
 
 def test_empty_object():
-    d = BlogPost(authors=[{"name": "Honza", "email": "honza@elastic.co"}])
+    d = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}])
     d.inner = {}
 
     d.full_clean()
@@ -105,12 +105,12 @@ def test_missing_required_field_raises_validation_exception():
         d.full_clean()
 
     d = BlogPost()
-    d.authors.append({"name": "Honza"})
+    d.authors.append({"name": "Guian"})
     with raises(ValidationException):
         d.full_clean()
 
     d = BlogPost()
-    d.authors.append({"name": "Honza", "email": "honza@elastic.co"})
+    d.authors.append({"name": "Guian", "email": "guiang@bitquilltech.com"})
     d.full_clean()
 
 
@@ -125,7 +125,7 @@ def test_boolean_doesnt_treat_false_as_empty():
 
 
 def test_custom_validation_on_nested_gets_run():
-    d = BlogPost(authors=[Author(name="Honza", email="king@example.com")], created=None)
+    d = BlogPost(authors=[Author(name="Guian", email="king@example.com")], created=None)
 
     assert isinstance(d.authors[0], Author)
 
@@ -144,7 +144,7 @@ def test_accessing_known_fields_returns_empty_value():
 
 
 def test_empty_values_are_not_serialized():
-    d = BlogPost(authors=[{"name": "Honza", "email": "honza@elastic.co"}], created=None)
+    d = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}], created=None)
 
     d.full_clean()
-    assert d.to_dict() == {"authors": [{"name": "Honza", "email": "honza@elastic.co"}]}
+    assert d.to_dict() == {"authors": [{"name": "Guian", "email": "guiang@bitquilltech.com"}]}
