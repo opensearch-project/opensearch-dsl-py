@@ -12,8 +12,8 @@ from .aggs import A
 from .analysis import analyzer, char_filter, normalizer, token_filter, tokenizer
 from .document import Document, InnerDoc, MetaField
 from .exceptions import (
-    ElasticsearchDslException,
     IllegalOperation,
+    OpenSearchDslException,
     UnknownDslObject,
     ValidationException,
 )
@@ -96,7 +96,6 @@ __all__ = [
     "Double",
     "DoubleRange",
     "DslBase",
-    "ElasticsearchDslException",
     "Facet",
     "FacetedResponse",
     "FacetedSearch",
@@ -126,6 +125,7 @@ __all__ = [
     "Nested",
     "NestedFacet",
     "Object",
+    "OpenSearchDslException",
     "Percolator",
     "Q",
     "Range",

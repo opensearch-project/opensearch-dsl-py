@@ -8,7 +8,7 @@
 # GitHub history for details.
 
 """A command line tool for building and verifying releases
-Can be used for building both 'elasticsearch' and 'elasticsearchX' dists.
+Can be used for building both 'opensearch' and 'opensearchX' dists.
 Only requires 'name' in 'setup.py' and the directory to be changed.
 """
 
@@ -53,7 +53,7 @@ def run(*argv, expect_exit_code=0):
 def test_dist(dist):
     with set_tmp_dir() as tmp_dir:
         dist_name = (
-            re.match(r"^(elasticsearch\d*[_-]dsl)-", os.path.basename(dist))
+            re.match(r"^(opensearch\d*[_-]dsl)-", os.path.basename(dist))
             .group(1)
             .replace("-", "_")
         )
@@ -69,7 +69,7 @@ def test_dist(dist):
 
         # Ensure that the namespaces are correct for the dist
         for suffix in ("", "1", "2", "5", "6", "7", "8", "9", "10"):
-            distx_name = f"elasticsearch{suffix}_dsl"
+            distx_name = f"opensearch{suffix}_dsl"
             run(
                 venv_python,
                 "-c",
@@ -80,7 +80,7 @@ def test_dist(dist):
             run(
                 venv_python,
                 "-c",
-                f"import elasticsearch{suffix}",
+                f"import opensearch{suffix}",
                 expect_exit_code=256 if distx_name != dist_name else 0,
             )
 

@@ -115,7 +115,7 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
 
     def simulate(self, text, using="default", explain=False, attributes=None):
         """
-        Use the Analyze API of elasticsearch to test the outcome of this analyzer.
+        Use the Analyze API of opensearch to test the outcome of this analyzer.
 
         :arg text: Text to be analyzed
         :arg using: connection alias to use, defaults to ``'default'``
@@ -125,7 +125,7 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
         :arg attributes: if ``explain`` is specified, filter the token
             attributes to return.
         """
-        es = get_connection(using)
+        opensearch = get_connection(using)
 
         body = {"text": text, "explain": explain}
         if attributes:
@@ -150,7 +150,7 @@ class CustomAnalyzer(CustomAnalysisDefinition, Analyzer):
         if self._builtin_type != "custom":
             body["analyzer"] = self._builtin_type
 
-        return AttrDict(es.indices.analyze(body=body))
+        return AttrDict(opensearch.indices.analyze(body=body))
 
 
 class Normalizer(AnalysisBase, DslBase):

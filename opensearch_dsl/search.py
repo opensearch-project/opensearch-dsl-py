@@ -143,9 +143,7 @@ class Request(object):
     def params(self, **kwargs):
         """
         Specify query params to be used when executing the search. All the
-        keyword arguments will override the current values. See
-        https://elasticsearch-py.readthedocs.io/en/master/api.html#elasticsearch.Elasticsearch.search
-        for all available parameters.
+        keyword arguments will override the current values.
 
         Example::
 
@@ -233,7 +231,7 @@ class Request(object):
                 self, hit["inner_hits"][t], doc_class=doc_class
             )
 
-        callback = getattr(doc_class, "from_es", doc_class)
+        callback = getattr(doc_class, "from_opensearch", doc_class)
         return callback(hit)
 
     def doc_type(self, *doc_type, **kwargs):
@@ -264,11 +262,11 @@ class Request(object):
 
     def using(self, client):
         """
-        Associate the search request with an elasticsearch client. A fresh copy
+        Associate the search request with an opensearch client. A fresh copy
         will be returned with current instance remaining unchanged.
 
-        :arg client: an instance of ``elasticsearch.Elasticsearch`` to use or
-            an alias to look up in ``elasticsearch_dsl.connections``
+        :arg client: an instance of ``opensearchpy.OpenSearch`` to use or
+            an alias to look up in ``opensearch_dsl.connections``
 
         """
         s = self._clone()
@@ -302,9 +300,9 @@ class Search(Request):
 
     def __init__(self, **kwargs):
         """
-        Search request to elasticsearch.
+        Search request to opensearch.
 
-        :arg using: `Elasticsearch` instance to use
+        :arg using: `OpenSearch` instance to use
         :arg index: limit the search to index
         :arg doc_type: only query this type.
 
@@ -356,7 +354,7 @@ class Search(Request):
             # If negative slicing, abort.
             if n.start and n.start < 0 or n.stop and n.stop < 0:
                 raise ValueError("Search does not support negative slicing.")
-            # Elasticsearch won't get all results so we default to size: 10 if
+            # OpenSearch won't get all results so we default to size: 10 if
             # stop not given.
             s._extra["from"] = n.start or 0
             s._extra["size"] = max(
@@ -461,9 +459,7 @@ class Search(Request):
 
     def script_fields(self, **kwargs):
         """
-        Define script fields to be calculated on hits. See
-        https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-script-fields.html
-        for more details.
+        Define script fields to be calculated on hits.
 
         Example::
 
@@ -627,7 +623,7 @@ class Search(Request):
         All keyword arguments will be added to the suggestions body. For example::
 
             s = Search()
-            s = s.suggest('suggestion-1', 'Elasticsearch', term={'field': 'body'})
+            s = s.suggest('suggestion-1', 'OpenSearch', term={'field': 'body'})
         """
         s = self._clone()
         s._suggest[name] = {"text": text}
@@ -686,11 +682,11 @@ class Search(Request):
         if hasattr(self, "_response") and self._response.hits.total.relation == "eq":
             return self._response.hits.total.value
 
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
         d = self.to_dict(count=True)
         # TODO: failed shards detection
-        return es.count(index=self._index, body=d, **self._params)["count"]
+        return opensearch.count(index=self._index, body=d, **self._params)["count"]
 
     def execute(self, ignore_cache=False):
         """
@@ -701,10 +697,13 @@ class Search(Request):
             ES, while cached result will be ignored. Defaults to `False`
         """
         if ignore_cache or not hasattr(self, "_response"):
-            es = get_connection(self._using)
+            opensearch = get_connection(self._using)
 
             self._response = self._response_class(
-                self, es.search(index=self._index, body=self.to_dict(), **self._params)
+                self,
+                opensearch.search(
+                    index=self._index, body=self.to_dict(), **self._params
+                ),
             )
         return self._response
 
@@ -714,13 +713,14 @@ class Search(Request):
         iterate over all the documents matching the query.
 
         Use ``params`` method to specify any additional arguments you with to
-        pass to the underlying ``scan`` helper from ``elasticsearch-py`` -
-        https://elasticsearch-py.readthedocs.io/en/master/helpers.html#elasticsearch.helpers.scan
+        pass to the underlying ``scan`` helper from ``opensearchpy``
 
         """
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
-        for hit in scan(es, query=self.to_dict(), index=self._index, **self._params):
+        for hit in scan(
+            opensearch, query=self.to_dict(), index=self._index, **self._params
+        ):
             yield self._get_result(hit)
 
     def delete(self):
@@ -728,16 +728,18 @@ class Search(Request):
         delete() executes the query by delegating to delete_by_query()
         """
 
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
         return AttrDict(
-            es.delete_by_query(index=self._index, body=self.to_dict(), **self._params)
+            opensearch.delete_by_query(
+                index=self._index, body=self.to_dict(), **self._params
+            )
         )
 
 
 class MultiSearch(Request):
     """
-    Combine multiple :class:`~elasticsearch_dsl.Search` objects into a single
+    Combine multiple :class:`~opensearch_dsl.Search` objects into a single
     request.
     """
 
@@ -758,7 +760,7 @@ class MultiSearch(Request):
 
     def add(self, search):
         """
-        Adds a new :class:`~elasticsearch_dsl.Search` object to the request::
+        Adds a new :class:`~opensearch_dsl.Search` object to the request::
 
             ms = MultiSearch(index='my-index')
             ms = ms.add(Search(doc_type=Category).filter('term', category='python'))
@@ -786,9 +788,9 @@ class MultiSearch(Request):
         Execute the multi search request and return a list of search results.
         """
         if ignore_cache or not hasattr(self, "_response"):
-            es = get_connection(self._using)
+            opensearch = get_connection(self._using)
 
-            responses = es.msearch(
+            responses = opensearch.msearch(
                 index=self._index, body=self.to_dict(), **self._params
             )
 

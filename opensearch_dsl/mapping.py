@@ -97,9 +97,9 @@ class Mapping(object):
         return m
 
     @classmethod
-    def from_es(cls, index, using="default"):
+    def from_opensearch(cls, index, using="default"):
         m = cls()
-        m.update_from_es(index, using)
+        m.update_from_opensearch(index, using)
         return m
 
     def resolve_nested(self, field_path):
@@ -159,9 +159,9 @@ class Mapping(object):
         index.mapping(self)
         return index.save()
 
-    def update_from_es(self, index, using="default"):
-        es = get_connection(using)
-        raw = es.indices.get_mapping(index=index)
+    def update_from_opensearch(self, index, using="default"):
+        opensearch = get_connection(using)
+        raw = opensearch.indices.get_mapping(index=index)
         _, raw = raw.popitem()
         self._update_from_dict(raw["mappings"])
 

@@ -20,9 +20,9 @@ class UpdateByQuery(Request):
 
     def __init__(self, **kwargs):
         """
-        Update by query request to elasticsearch.
+        Update by query request to opensearch.
 
-        :arg using: `Elasticsearch` instance to use
+        :arg using: `OpenSearch` instance to use
         :arg index: limit the search to index
         :arg doc_type: only query this type.
 
@@ -100,8 +100,6 @@ class UpdateByQuery(Request):
     def script(self, **kwargs):
         """
         Define update action to take:
-        https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting-using.html
-        for more details.
 
         Note: the API only accepts a single script, so
         calling the script multiple times will overwrite.
@@ -143,10 +141,12 @@ class UpdateByQuery(Request):
         Execute the search and return an instance of ``Response`` wrapping all
         the data.
         """
-        es = get_connection(self._using)
+        opensearch = get_connection(self._using)
 
         self._response = self._response_class(
             self,
-            es.update_by_query(index=self._index, body=self.to_dict(), **self._params),
+            opensearch.update_by_query(
+                index=self._index, body=self.to_dict(), **self._params
+            ),
         )
         return self._response

@@ -8,17 +8,17 @@
 # GitHub history for details.
 
 
-class ElasticsearchDslException(Exception):
+class OpenSearchDslException(Exception):
     pass
 
 
-class UnknownDslObject(ElasticsearchDslException):
+class UnknownDslObject(OpenSearchDslException):
     pass
 
 
-class ValidationException(ValueError, ElasticsearchDslException):
+class ValidationException(ValueError, OpenSearchDslException):
     pass
 
 
-class IllegalOperation(ElasticsearchDslException):
+class IllegalOperation(OpenSearchDslException):
     pass

@@ -43,8 +43,10 @@ class IndexTemplate(object):
 
     def save(self, using=None):
 
-        es = get_connection(using or self._index._using)
-        return es.indices.put_template(name=self._template_name, body=self.to_dict())
+        opensearch = get_connection(using or self._index._using)
+        return opensearch.indices.put_template(
+            name=self._template_name, body=self.to_dict()
+        )
 
 
 class Index(object):
@@ -93,7 +95,7 @@ class Index(object):
         return None
 
     def load_mappings(self, using=None):
-        self.get_or_create_mapping().update_from_es(
+        self.get_or_create_mapping().update_from_opensearch(
             self._name, using=using or self._using
         )
 
@@ -131,7 +133,7 @@ class Index(object):
     def mapping(self, mapping):
         """
         Associate a mapping (an instance of
-        :class:`~elasticsearch_dsl.Mapping`) with this index.
+        :class:`~opensearch_dsl.Mapping`) with this index.
         This means that, when this index is created, it will contain the
         mappings for the document type defined by those mappings.
         """
@@ -139,7 +141,7 @@ class Index(object):
 
     def document(self, document):
         """
-        Associate a :class:`~elasticsearch_dsl.Document` subclass with an index.
+        Associate a :class:`~opensearch_dsl.Document` subclass with an index.
         This means that, when this index is created, it will contain the
         mappings for the ``Document``. If the ``Document`` class doesn't have a
         default index yet (by defining ``class Index``), this instance will be
@@ -198,7 +200,7 @@ class Index(object):
 
         Example::
 
-            from elasticsearch_dsl import analyzer, tokenizer
+            from opensearch_dsl import analyzer, tokenizer
 
             my_analyzer = analyzer('my_analyzer',
                 tokenizer=tokenizer('trigram', 'nGram', min_gram=3, max_gram=3),
@@ -239,7 +241,7 @@ class Index(object):
 
     def search(self, using=None):
         """
-        Return a :class:`~elasticsearch_dsl.Search` object searching over the
+        Return a :class:`~opensearch_dsl.Search` object searching over the
         index (or all the indices belonging to this template) and its
         ``Document``\\s.
         """
@@ -249,12 +251,12 @@ class Index(object):
 
     def updateByQuery(self, using=None):
         """
-        Return a :class:`~elasticsearch_dsl.UpdateByQuery` object searching over the index
+        Return a :class:`~opensearch_dsl.UpdateByQuery` object searching over the index
         (or all the indices belonging to this template) and updating Documents that match
         the search criteria.
 
         For more information, see here:
-        https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-update-by-query.html
+        https://opensearch.org/docs/latest/opensearch/rest-api/document-apis/update-by-query/
         """
         return UpdateByQuery(
             using=using or self._using,
@@ -263,10 +265,10 @@ class Index(object):
 
     def create(self, using=None, **kwargs):
         """
-        Creates the index in elasticsearch.
+        Creates the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.create`` unchanged.
+        ``OpenSearch.indices.create`` unchanged.
         """
         return self._get_connection(using).indices.create(
             index=self._name, body=self.to_dict(), **kwargs
@@ -280,7 +282,7 @@ class Index(object):
 
     def save(self, using=None):
         """
-        Sync the index definition with elasticsearch, creating the index if it
+        Sync the index definition with opensearch, creating the index if it
         doesn't exist and updating its settings and mappings if it does.
 
         Note some settings and mapping changes cannot be done on an open
@@ -338,7 +340,7 @@ class Index(object):
         of the text.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.analyze`` unchanged.
+        ``OpenSearch.indices.analyze`` unchanged.
         """
         return self._get_connection(using).indices.analyze(index=self._name, **kwargs)
 
@@ -347,7 +349,7 @@ class Index(object):
         Performs a refresh operation on the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.refresh`` unchanged.
+        ``OpenSearch.indices.refresh`` unchanged.
         """
         return self._get_connection(using).indices.refresh(index=self._name, **kwargs)
 
@@ -356,7 +358,7 @@ class Index(object):
         Performs a flush operation on the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.flush`` unchanged.
+        ``OpenSearch.indices.flush`` unchanged.
         """
         return self._get_connection(using).indices.flush(index=self._name, **kwargs)
 
@@ -365,43 +367,43 @@ class Index(object):
         The get index API allows to retrieve information about the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.get`` unchanged.
+        ``OpenSearch.indices.get`` unchanged.
         """
         return self._get_connection(using).indices.get(index=self._name, **kwargs)
 
     def open(self, using=None, **kwargs):
         """
-        Opens the index in elasticsearch.
+        Opens the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.open`` unchanged.
+        ``OpenSearch.indices.open`` unchanged.
         """
         return self._get_connection(using).indices.open(index=self._name, **kwargs)
 
     def close(self, using=None, **kwargs):
         """
-        Closes the index in elasticsearch.
+        Closes the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.close`` unchanged.
+        ``OpenSearch.indices.close`` unchanged.
         """
         return self._get_connection(using).indices.close(index=self._name, **kwargs)
 
     def delete(self, using=None, **kwargs):
         """
-        Deletes the index in elasticsearch.
+        Deletes the index in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.delete`` unchanged.
+        ``OpenSearch.indices.delete`` unchanged.
         """
         return self._get_connection(using).indices.delete(index=self._name, **kwargs)
 
     def exists(self, using=None, **kwargs):
         """
-        Returns ``True`` if the index already exists in elasticsearch.
+        Returns ``True`` if the index already exists in opensearch.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.exists`` unchanged.
+        ``OpenSearch.indices.exists`` unchanged.
         """
         return self._get_connection(using).indices.exists(index=self._name, **kwargs)
 
@@ -410,7 +412,7 @@ class Index(object):
         Check if a type/types exists in the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.exists_type`` unchanged.
+        ``OpenSearch.indices.exists_type`` unchanged.
         """
         return self._get_connection(using).indices.exists_type(
             index=self._name, **kwargs
@@ -421,7 +423,7 @@ class Index(object):
         Register specific mapping definition for a specific type.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.put_mapping`` unchanged.
+        ``OpenSearch.indices.put_mapping`` unchanged.
         """
         return self._get_connection(using).indices.put_mapping(
             index=self._name, **kwargs
@@ -432,7 +434,7 @@ class Index(object):
         Retrieve specific mapping definition for a specific type.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.get_mapping`` unchanged.
+        ``OpenSearch.indices.get_mapping`` unchanged.
         """
         return self._get_connection(using).indices.get_mapping(
             index=self._name, **kwargs
@@ -443,7 +445,7 @@ class Index(object):
         Retrieve mapping definition of a specific field.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.get_field_mapping`` unchanged.
+        ``OpenSearch.indices.get_field_mapping`` unchanged.
         """
         return self._get_connection(using).indices.get_field_mapping(
             index=self._name, **kwargs
@@ -454,7 +456,7 @@ class Index(object):
         Create an alias for the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.put_alias`` unchanged.
+        ``OpenSearch.indices.put_alias`` unchanged.
         """
         return self._get_connection(using).indices.put_alias(index=self._name, **kwargs)
 
@@ -463,7 +465,7 @@ class Index(object):
         Return a boolean indicating whether given alias exists for this index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.exists_alias`` unchanged.
+        ``OpenSearch.indices.exists_alias`` unchanged.
         """
         return self._get_connection(using).indices.exists_alias(
             index=self._name, **kwargs
@@ -474,7 +476,7 @@ class Index(object):
         Retrieve a specified alias.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.get_alias`` unchanged.
+        ``OpenSearch.indices.get_alias`` unchanged.
         """
         return self._get_connection(using).indices.get_alias(index=self._name, **kwargs)
 
@@ -483,7 +485,7 @@ class Index(object):
         Delete specific alias.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.delete_alias`` unchanged.
+        ``OpenSearch.indices.delete_alias`` unchanged.
         """
         return self._get_connection(using).indices.delete_alias(
             index=self._name, **kwargs
@@ -494,7 +496,7 @@ class Index(object):
         Retrieve settings for the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.get_settings`` unchanged.
+        ``OpenSearch.indices.get_settings`` unchanged.
         """
         return self._get_connection(using).indices.get_settings(
             index=self._name, **kwargs
@@ -505,7 +507,7 @@ class Index(object):
         Change specific index level settings in real time.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.put_settings`` unchanged.
+        ``OpenSearch.indices.put_settings`` unchanged.
         """
         return self._get_connection(using).indices.put_settings(
             index=self._name, **kwargs
@@ -516,7 +518,7 @@ class Index(object):
         Retrieve statistics on different operations happening on the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.stats`` unchanged.
+        ``OpenSearch.indices.stats`` unchanged.
         """
         return self._get_connection(using).indices.stats(index=self._name, **kwargs)
 
@@ -526,7 +528,7 @@ class Index(object):
         level) is built with.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.segments`` unchanged.
+        ``OpenSearch.indices.segments`` unchanged.
         """
         return self._get_connection(using).indices.segments(index=self._name, **kwargs)
 
@@ -535,7 +537,7 @@ class Index(object):
         Validate a potentially expensive query without executing it.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.validate_query`` unchanged.
+        ``OpenSearch.indices.validate_query`` unchanged.
         """
         return self._get_connection(using).indices.validate_query(
             index=self._name, **kwargs
@@ -546,7 +548,7 @@ class Index(object):
         Clear all caches or specific cached associated with the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.clear_cache`` unchanged.
+        ``OpenSearch.indices.clear_cache`` unchanged.
         """
         return self._get_connection(using).indices.clear_cache(
             index=self._name, **kwargs
@@ -558,7 +560,7 @@ class Index(object):
         recoveries for the index.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.recovery`` unchanged.
+        ``OpenSearch.indices.recovery`` unchanged.
         """
         return self._get_connection(using).indices.recovery(index=self._name, **kwargs)
 
@@ -567,7 +569,7 @@ class Index(object):
         Upgrade the index to the latest format.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.upgrade`` unchanged.
+        ``OpenSearch.indices.upgrade`` unchanged.
         """
         return self._get_connection(using).indices.upgrade(index=self._name, **kwargs)
 
@@ -576,7 +578,7 @@ class Index(object):
         Monitor how much of the index is upgraded.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.get_upgrade`` unchanged.
+        ``OpenSearch.indices.get_upgrade`` unchanged.
         """
         return self._get_connection(using).indices.get_upgrade(
             index=self._name, **kwargs
@@ -588,7 +590,7 @@ class Index(object):
         all shards.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.flush_synced`` unchanged.
+        ``OpenSearch.indices.flush_synced`` unchanged.
         """
         return self._get_connection(using).indices.flush_synced(
             index=self._name, **kwargs
@@ -602,7 +604,7 @@ class Index(object):
         while opening the shard index or from earlier engine failure.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.shard_stores`` unchanged.
+        ``OpenSearch.indices.shard_stores`` unchanged.
         """
         return self._get_connection(using).indices.shard_stores(
             index=self._name, **kwargs
@@ -620,7 +622,7 @@ class Index(object):
         any new requests will block until the previous force merge is complete.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.forcemerge`` unchanged.
+        ``OpenSearch.indices.forcemerge`` unchanged.
         """
         return self._get_connection(using).indices.forcemerge(
             index=self._name, **kwargs
@@ -639,6 +641,6 @@ class Index(object):
         on the same node.
 
         Any additional keyword arguments will be passed to
-        ``Elasticsearch.indices.shrink`` unchanged.
+        ``OpenSearch.indices.shrink`` unchanged.
         """
         return self._get_connection(using).indices.shrink(index=self._name, **kwargs)
