@@ -160,7 +160,9 @@ def test_boolean_facet(data_client, repo_search_cls):
     assert value is True
 
 
-def test_empty_search_finds_everything(data_client, opensearch_version, commit_search_cls):
+def test_empty_search_finds_everything(
+    data_client, opensearch_version, commit_search_cls
+):
     cs = commit_search_cls()
     r = cs.execute()
 

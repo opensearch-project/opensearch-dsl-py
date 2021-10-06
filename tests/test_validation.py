@@ -144,7 +144,11 @@ def test_accessing_known_fields_returns_empty_value():
 
 
 def test_empty_values_are_not_serialized():
-    d = BlogPost(authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}], created=None)
+    d = BlogPost(
+        authors=[{"name": "Guian", "email": "guiang@bitquilltech.com"}], created=None
+    )
 
     d.full_clean()
-    assert d.to_dict() == {"authors": [{"name": "Guian", "email": "guiang@bitquilltech.com"}]}
+    assert d.to_dict() == {
+        "authors": [{"name": "Guian", "email": "guiang@bitquilltech.com"}]
+    }

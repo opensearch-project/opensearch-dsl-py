@@ -99,7 +99,8 @@ def test_filter_is_applied_to_search_but_not_relevant_facet():
 
 def test_filters_are_applied_to_search_ant_relevant_facets():
     bs = BlogSearch(
-        "python search", filters={"category": "opensearch", "tags": ["python", "django"]}
+        "python search",
+        filters={"category": "opensearch", "tags": ["python", "django"]},
     )
     s = bs.build_search()
 

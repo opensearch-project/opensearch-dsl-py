@@ -45,7 +45,9 @@ def test_configure_preserves_unchanged_connections():
     default = c.get_connection()
     local = c.get_connection("local")
 
-    c.configure(default={"hosts": ["not-opensearch.com"]}, local={"hosts": ["localhost"]})
+    c.configure(
+        default={"hosts": ["not-opensearch.com"]}, local={"hosts": ["localhost"]}
+    )
     new_default = c.get_connection()
     new_local = c.get_connection("local")
 
