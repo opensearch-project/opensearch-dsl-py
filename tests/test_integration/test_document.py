@@ -412,7 +412,9 @@ def test_update(data_client):
     v = opensearch_repo.meta.version
 
     old_seq_no = opensearch_repo.meta.seq_no
-    opensearch_repo.update(owner={"new_name": "opensearchpy"}, new_field="testing-update")
+    opensearch_repo.update(
+        owner={"new_name": "opensearchpy"}, new_field="testing-update"
+    )
 
     assert "opensearchpy" == opensearch_repo.owner.new_name
     assert "testing-update" == opensearch_repo.new_field
