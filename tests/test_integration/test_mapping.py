@@ -12,7 +12,7 @@ from pytest import raises
 from opensearch_dsl import analysis, exceptions, mapping
 
 
-def test_mapping_saved_into_es(write_client):
+def test_mapping_saved_into_opensearch(write_client):
     m = mapping.Mapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -32,7 +32,7 @@ def test_mapping_saved_into_es(write_client):
     } == write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_saved_into_es_when_index_already_exists_closed(write_client):
+def test_mapping_saved_into_opensearch_when_index_already_exists_closed(write_client):
     m = mapping.Mapping()
     m.field(
         "name", "text", analyzer=analysis.analyzer("my_analyzer", tokenizer="keyword")
@@ -55,7 +55,9 @@ def test_mapping_saved_into_es_when_index_already_exists_closed(write_client):
     } == write_client.indices.get_mapping(index="test-mapping")
 
 
-def test_mapping_saved_into_es_when_index_already_exists_with_analysis(write_client):
+def test_mapping_saved_into_opensearch_when_index_already_exists_with_analysis(
+    write_client,
+):
     m = mapping.Mapping()
     analyzer = analysis.analyzer("my_analyzer", tokenizer="keyword")
     m.field("name", "text", analyzer=analyzer)

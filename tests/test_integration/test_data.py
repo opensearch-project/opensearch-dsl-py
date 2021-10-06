@@ -107,12 +107,12 @@ def create_git_index(client, index):
 DATA = [
     # repository
     {
-        "_id": "elasticsearch-dsl-py",
+        "_id": "opensearch-dsl-py",
         "_source": {
             "commit_repo": "repo",
-            "organization": "elasticsearch",
+            "organization": "opensearch",
             "created_at": "2014-03-03",
-            "owner": {"name": "elasticsearch"},
+            "owner": {"name": "opensearch"},
             "is_public": True,
         },
         "_index": "git",
@@ -120,14 +120,14 @@ DATA = [
     # documents
     {
         "_id": "3ca6e1e73a071a705b4babd2f581c91a2a3e5037",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_aggs.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/aggs.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_aggs.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 7, "insertions": 23, "lines": 30, "files": 4},
@@ -141,13 +141,13 @@ DATA = [
     },
     {
         "_id": "eb3e543323f189fd7b698e66295427204fff5755",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/search.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/search.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 18, "lines": 18, "files": 1},
-            "description": "Add communication with ES server",
+            "description": "Add communication with OpenSearch server",
             "author": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "parent_shas": ["dd15b6ba17dd9ba16363a51f85b31f66f1fb1157"],
             "committed_date": "2014-05-01T13:32:14",
@@ -157,13 +157,13 @@ DATA = [
     },
     {
         "_id": "dd15b6ba17dd9ba16363a51f85b31f66f1fb1157",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/utils.py",
-                "test_elasticsearch_dsl/test_result.py",
-                "elasticsearch_dsl/result.py",
+                "opensearch_dsl/utils.py",
+                "test_opensearch_dsl/test_result.py",
+                "opensearch_dsl/result.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 18, "insertions": 44, "lines": 62, "files": 3},
@@ -177,13 +177,13 @@ DATA = [
     },
     {
         "_id": "ed19caf25abd25300e707fadf3f81b05c5673446",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/aggs.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 28, "lines": 28, "files": 3},
@@ -197,10 +197,10 @@ DATA = [
     },
     {
         "_id": "583e52c71e9a72c1b291ec5843683d8fa8f1ce2d",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/aggs.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/aggs.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 1, "lines": 2, "files": 1},
             "description": "Use __setitem__ from DslBase in AggsBase",
@@ -213,15 +213,15 @@ DATA = [
     },
     {
         "_id": "1dd19210b5be92b960f7db6f66ae526288edccc3",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_search.py",
-                "elasticsearch_dsl/search.py",
-                "elasticsearch_dsl/filter.py",
+                "opensearch_dsl/aggs.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_search.py",
+                "opensearch_dsl/search.py",
+                "opensearch_dsl/filter.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 21, "insertions": 98, "lines": 119, "files": 5},
@@ -235,10 +235,10 @@ DATA = [
     },
     {
         "_id": "b4c9e29376af2e42a4e6dc153f0f293b1a18bac3",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["test_elasticsearch_dsl/test_result.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["test_opensearch_dsl/test_result.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 5, "lines": 5, "files": 1},
             "description": "Add tests for [] on response",
@@ -251,10 +251,10 @@ DATA = [
     },
     {
         "_id": "a64a54181b232bb5943bd16960be9416e402f5f5",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["test_elasticsearch_dsl/test_result.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["test_opensearch_dsl/test_result.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 7, "lines": 8, "files": 1},
             "description": "Test access to missing fields raises appropriate exceptions",
@@ -267,13 +267,13 @@ DATA = [
     },
     {
         "_id": "df3f778a3d37b170bde6979a4ef2d9e3e6400778",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/utils.py",
-                "test_elasticsearch_dsl/test_result.py",
-                "elasticsearch_dsl/result.py",
+                "opensearch_dsl/utils.py",
+                "test_opensearch_dsl/test_result.py",
+                "opensearch_dsl/result.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 8, "insertions": 31, "lines": 39, "files": 3},
@@ -287,12 +287,12 @@ DATA = [
     },
     {
         "_id": "7e599e116b5ff5d271ce3fe1ebc80e82ab3d5925",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "test_elasticsearch_dsl/test_result.py",
-                "elasticsearch_dsl/result.py",
+                "test_opensearch_dsl/test_result.py",
+                "opensearch_dsl/result.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 149, "lines": 149, "files": 2},
@@ -306,9 +306,9 @@ DATA = [
     },
     {
         "_id": "e2882d28cb8077eaa3e5d8ae76543482d4d90f7e",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": ["docs/index.rst"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 6, "lines": 6, "files": 1},
@@ -322,10 +322,10 @@ DATA = [
     },
     {
         "_id": "51f94d83d1c47d3b81207736ca97a1ec6302678f",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/utils.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/utils.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 3, "insertions": 29, "lines": 32, "files": 1},
             "description": "Add some comments to the code",
@@ -338,9 +338,9 @@ DATA = [
     },
     {
         "_id": "0950f6c600b49e2bf012d03b02250fb71c848555",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": ["README.rst"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 6, "lines": 6, "files": 1},
@@ -354,13 +354,13 @@ DATA = [
     },
     {
         "_id": "54d058f5ac6be8225ef61d5529772aada42ec6c8",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/__init__.py",
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/__init__.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 36, "insertions": 7, "lines": 43, "files": 3},
@@ -374,12 +374,12 @@ DATA = [
     },
     {
         "_id": "4cb07845e45787abc1f850c0b561e487e0034424",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/aggs.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 35, "insertions": 49, "lines": 84, "files": 2},
@@ -393,10 +393,10 @@ DATA = [
     },
     {
         "_id": "578abe80f76aafd7e81fe46a44403e601733a938",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["test_elasticsearch_dsl/test_search.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["test_opensearch_dsl/test_search.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 2, "insertions": 0, "lines": 2, "files": 1},
             "description": "removing extra whitespace",
@@ -409,10 +409,10 @@ DATA = [
     },
     {
         "_id": "ecb84f03565940c7d294dbc80723420dcfbab340",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["test_elasticsearch_dsl/test_search.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["test_opensearch_dsl/test_search.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 3, "lines": 4, "files": 1},
             "description": "Make sure attribute access works for .query on Search",
@@ -425,10 +425,10 @@ DATA = [
     },
     {
         "_id": "9a247c876ab66e2bca56b25f392d054e613b1b2a",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/search.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/search.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 2, "lines": 2, "files": 1},
             "description": "Make sure .index and .doc_type methods are chainable",
@@ -441,13 +441,13 @@ DATA = [
     },
     {
         "_id": "cee5e46947d510a49edd3609ff91aab7b1f3ac89",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
-                "elasticsearch_dsl/filter.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
+                "opensearch_dsl/filter.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 13, "insertions": 128, "lines": 141, "files": 3},
@@ -461,10 +461,10 @@ DATA = [
     },
     {
         "_id": "1d6857182b09a556d58c6bc5bdcb243092812ba3",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/utils.py", "elasticsearch_dsl/query.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/utils.py", "opensearch_dsl/query.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 24, "insertions": 29, "lines": 53, "files": 2},
             "description": "Extracted combination logic into DslBase",
@@ -477,10 +477,10 @@ DATA = [
     },
     {
         "_id": "4ad92f15a1955846c01642318303a821e8435b75",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/utils.py", "elasticsearch_dsl/query.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/utils.py", "opensearch_dsl/query.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 43, "insertions": 45, "lines": 88, "files": 2},
             "description": "Extracted bool-related logic to a mixin to be reused by filters",
@@ -493,12 +493,12 @@ DATA = [
     },
     {
         "_id": "6eb39dc2825605543ac1ed0b45b9b6baeecc44c2",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 32, "lines": 33, "files": 2},
@@ -512,13 +512,13 @@ DATA = [
     },
     {
         "_id": "be094c7b307332cb6039bf9a7c984d2c7593ddff",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/utils.py",
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/utils.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 23, "insertions": 35, "lines": 58, "files": 3},
@@ -532,12 +532,12 @@ DATA = [
     },
     {
         "_id": "b2576e3b6437e2cb9d8971fee4ead60df91fd75b",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 53, "lines": 54, "files": 2},
@@ -551,12 +551,12 @@ DATA = [
     },
     {
         "_id": "1be002170ac3cd59d2e97824b83b88bb3c9c60ed",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 35, "lines": 35, "files": 2},
@@ -570,10 +570,10 @@ DATA = [
     },
     {
         "_id": "24e1e38b2f704f65440d96c290b7c6cd54c2e00e",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/aggs.py", "elasticsearch_dsl/utils.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/aggs.py", "opensearch_dsl/utils.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 5, "insertions": 1, "lines": 6, "files": 2},
             "description": "Change equality checks to use .to_dict()",
@@ -586,12 +586,12 @@ DATA = [
     },
     {
         "_id": "277cfaedbaf3705ed74ad6296227e1172c97a63f",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 11, "lines": 12, "files": 2},
@@ -605,12 +605,12 @@ DATA = [
     },
     {
         "_id": "6aa3868a6a9f35f71553ce96f9d3d63c74d054fd",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 23, "lines": 24, "files": 2},
@@ -624,12 +624,12 @@ DATA = [
     },
     {
         "_id": "bb311eb35e7eb53fb5ae01e3f80336866c7e3e37",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/utils.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/utils.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 1, "insertions": 4, "lines": 5, "files": 2},
@@ -643,13 +643,13 @@ DATA = [
     },
     {
         "_id": "aea8ea9e421bd53a5b058495e68c3fd57bb1dacc",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/utils.py",
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/utils.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 3, "insertions": 37, "lines": 40, "files": 3},
@@ -663,10 +663,10 @@ DATA = [
     },
     {
         "_id": "a8819a510b919be43ff3011b904f257798fb8916",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["test_elasticsearch_dsl/run_tests.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["test_opensearch_dsl/run_tests.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 6, "insertions": 2, "lines": 8, "files": 1},
             "description": "Simpler run_tests.py",
@@ -679,10 +679,10 @@ DATA = [
     },
     {
         "_id": "e35792a725be2325fc54d3fcb95a7d38d8075a99",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/aggs.py", "elasticsearch_dsl/query.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/aggs.py", "opensearch_dsl/query.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 2, "insertions": 2, "lines": 4, "files": 2},
             "description": "Maku we don't treat shortcuts as methods.",
@@ -695,13 +695,13 @@ DATA = [
     },
     {
         "_id": "3179d778dc9e3f2883d5f7ffa63b9ae0399c16bc",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "elasticsearch_dsl/query.py",
-                "elasticsearch_dsl/utils.py",
+                "opensearch_dsl/aggs.py",
+                "opensearch_dsl/query.py",
+                "opensearch_dsl/utils.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 9, "insertions": 5, "lines": 14, "files": 3},
@@ -715,16 +715,16 @@ DATA = [
     },
     {
         "_id": "b5e7d0c4b284211df8f7b464fcece93a27a802fb",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
-                "elasticsearch_dsl/utils.py",
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_aggs.py",
+                "opensearch_dsl/aggs.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
+                "opensearch_dsl/utils.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_aggs.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 75, "insertions": 115, "lines": 190, "files": 6},
@@ -738,10 +738,10 @@ DATA = [
     },
     {
         "_id": "0fe741b43adee5ca1424584ddd3f35fa33f8733c",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["test_elasticsearch_dsl/test_search.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["test_opensearch_dsl/test_search.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 2, "insertions": 2, "lines": 4, "files": 1},
             "description": "Make sure .query is chainable",
@@ -754,13 +754,13 @@ DATA = [
     },
     {
         "_id": "a22be5933d4b022cbacee867b1aece120208edf3",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/aggs.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 14, "insertions": 44, "lines": 58, "files": 3},
@@ -774,9 +774,9 @@ DATA = [
     },
     {
         "_id": "e823686aacfc4bdcb34ffdab337a26fa09659a9a",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [".gitignore"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 1, "lines": 1, "files": 1},
@@ -790,12 +790,12 @@ DATA = [
     },
     {
         "_id": "e0aedb3011c71d704deec03a8f32b2b360d6e364",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/aggs.py",
-                "test_elasticsearch_dsl/test_aggs.py",
+                "opensearch_dsl/aggs.py",
+                "test_opensearch_dsl/test_aggs.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 228, "lines": 228, "files": 2},
@@ -809,10 +809,10 @@ DATA = [
     },
     {
         "_id": "61cbc0aa62a0b776ae5e333406659dbb2f5cfbbd",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/utils.py", "elasticsearch_dsl/query.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/utils.py", "opensearch_dsl/query.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 12, "insertions": 7, "lines": 19, "files": 2},
             "description": "Only retrieve DslClass, leave the instantiation to the caller",
@@ -825,13 +825,13 @@ DATA = [
     },
     {
         "_id": "647f1017a7b17a913e07af70a3b03202f6adbdfd",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "test_elasticsearch_dsl/test_search.py",
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "test_opensearch_dsl/test_search.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 19, "insertions": 19, "lines": 38, "files": 3},
@@ -845,10 +845,10 @@ DATA = [
     },
     {
         "_id": "7c4f94ecdb38f0e91c7ee52f579c0ea148afcc7d",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
-            "files": ["elasticsearch_dsl/utils.py"],
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
+            "files": ["opensearch_dsl/utils.py"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 2, "insertions": 3, "lines": 5, "files": 1},
             "description": "Ask forgiveness, not permission",
@@ -861,13 +861,13 @@ DATA = [
     },
     {
         "_id": "c10793c2ca43688195e415b25b674ff34d58eaff",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/utils.py",
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/utils.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 24, "insertions": 27, "lines": 51, "files": 3},
@@ -881,12 +881,12 @@ DATA = [
     },
     {
         "_id": "d8867fdb17fcf4c696657740fa08d29c36adc6ec",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 13, "lines": 13, "files": 2},
@@ -900,12 +900,12 @@ DATA = [
     },
     {
         "_id": "2eb7cd980d917ed6f4a4dd8e246804f710ec5082",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/search.py",
-                "test_elasticsearch_dsl/test_search.py",
+                "opensearch_dsl/search.py",
+                "test_opensearch_dsl/test_search.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 113, "lines": 113, "files": 2},
@@ -919,12 +919,12 @@ DATA = [
     },
     {
         "_id": "11708576f9118e0dbf27ae1f8a7b799cf281b511",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 13, "lines": 13, "files": 2},
@@ -938,12 +938,12 @@ DATA = [
     },
     {
         "_id": "1dc496e5c7c1b2caf290df477fca2db61ebe37e0",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 53, "lines": 53, "files": 2},
@@ -957,9 +957,9 @@ DATA = [
     },
     {
         "_id": "d407f99d1959b7b862a541c066d9fd737ce913f3",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": ["CONTRIBUTING.md", "README.rst"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 6, "insertions": 21, "lines": 27, "files": 2},
@@ -973,13 +973,13 @@ DATA = [
     },
     {
         "_id": "277e8ecc7395754d1ba1f2411ec32337a3e9d73f",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
+                "opensearch_dsl/query.py",
                 "setup.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 59, "lines": 59, "files": 3},
@@ -993,12 +993,12 @@ DATA = [
     },
     {
         "_id": "8f1e34bd8f462fec50bcc10971df2d57e2986604",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/query.py",
-                "test_elasticsearch_dsl/test_query.py",
+                "opensearch_dsl/query.py",
+                "test_opensearch_dsl/test_query.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 54, "lines": 54, "files": 2},
@@ -1012,9 +1012,9 @@ DATA = [
     },
     {
         "_id": "fcff47ddcc6d08be5739d03dd30f504fb9db2608",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
                 "docs/Makefile",
                 "CONTRIBUTING.md",
@@ -1036,15 +1036,15 @@ DATA = [
     },
     {
         "_id": "febe8127ae48fcc81778c0fb2d628f1bcc0a0350",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [
-                "elasticsearch_dsl/__init__.py",
-                "test_elasticsearch_dsl/run_tests.py",
+                "opensearch_dsl/__init__.py",
+                "test_opensearch_dsl/run_tests.py",
                 "setup.py",
                 "README.rst",
-                "test_elasticsearch_dsl/__init__.py",
+                "test_opensearch_dsl/__init__.py",
             ],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 82, "lines": 82, "files": 5},
@@ -1058,9 +1058,9 @@ DATA = [
     },
     {
         "_id": "2a8f1ce89760bfc72808f3945b539eae650acac9",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_source": {
-            "commit_repo": {"name": "commit", "parent": "elasticsearch-dsl-py"},
+            "commit_repo": {"name": "commit", "parent": "opensearch-dsl-py"},
             "files": [".gitignore"],
             "committer": {"name": "Honza Kr\xe1l", "email": "honza.kral@gmail.com"},
             "stats": {"deletions": 0, "insertions": 9, "lines": 9, "files": 1},
@@ -1088,7 +1088,7 @@ def create_test_git_data(d):
     src = d["_source"].copy()
     return {
         "_index": "test-git",
-        "routing": "elasticsearch-dsl-py",
+        "routing": "opensearch-dsl-py",
         "_id": d["_id"],
         "_source": src,
     }

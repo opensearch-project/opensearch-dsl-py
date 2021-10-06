@@ -49,7 +49,7 @@ class MetricSearch(FacetedSearch):
 
 
 @pytest.fixture(scope="session")
-def commit_search_cls(es_version):
+def commit_search_cls(opensearch_version):
     interval_kwargs = {"fixed_interval": "1d"}
 
     class CommitSearch(FacetedSearch):
@@ -74,7 +74,7 @@ def commit_search_cls(es_version):
 
 
 @pytest.fixture(scope="session")
-def repo_search_cls(es_version):
+def repo_search_cls(opensearch_version):
     interval_type = "calendar_interval"
 
     class RepoSearch(FacetedSearch):
@@ -95,7 +95,7 @@ def repo_search_cls(es_version):
 
 
 @pytest.fixture(scope="session")
-def pr_search_cls(es_version):
+def pr_search_cls(opensearch_version):
     interval_type = "calendar_interval"
 
     class PRSearch(FacetedSearch):
@@ -160,22 +160,24 @@ def test_boolean_facet(data_client, repo_search_cls):
     assert value is True
 
 
-def test_empty_search_finds_everything(data_client, es_version, commit_search_cls):
+def test_empty_search_finds_everything(
+    data_client, opensearch_version, commit_search_cls
+):
     cs = commit_search_cls()
     r = cs.execute()
 
     assert r.hits.total.value == 52
     assert [
-        ("elasticsearch_dsl", 40, False),
-        ("test_elasticsearch_dsl", 35, False),
-        ("elasticsearch_dsl/query.py", 19, False),
-        ("test_elasticsearch_dsl/test_search.py", 15, False),
-        ("elasticsearch_dsl/utils.py", 14, False),
-        ("test_elasticsearch_dsl/test_query.py", 13, False),
-        ("elasticsearch_dsl/search.py", 12, False),
-        ("elasticsearch_dsl/aggs.py", 11, False),
-        ("test_elasticsearch_dsl/test_result.py", 5, False),
-        ("elasticsearch_dsl/result.py", 3, False),
+        ("opensearch_dsl", 40, False),
+        ("test_opensearch_dsl", 35, False),
+        ("opensearch_dsl/query.py", 19, False),
+        ("test_opensearch_dsl/test_search.py", 15, False),
+        ("opensearch_dsl/utils.py", 14, False),
+        ("test_opensearch_dsl/test_query.py", 13, False),
+        ("opensearch_dsl/search.py", 12, False),
+        ("opensearch_dsl/aggs.py", 11, False),
+        ("test_opensearch_dsl/test_result.py", 5, False),
+        ("opensearch_dsl/result.py", 3, False),
     ] == r.facets.files
 
     assert [
@@ -208,22 +210,22 @@ def test_empty_search_finds_everything(data_client, es_version, commit_search_cl
 def test_term_filters_are_shown_as_selected_and_data_is_filtered(
     data_client, commit_search_cls
 ):
-    cs = commit_search_cls(filters={"files": "test_elasticsearch_dsl"})
+    cs = commit_search_cls(filters={"files": "test_opensearch_dsl"})
 
     r = cs.execute()
 
     assert 35 == r.hits.total.value
     assert [
-        ("elasticsearch_dsl", 40, False),
-        ("test_elasticsearch_dsl", 35, True),  # selected
-        ("elasticsearch_dsl/query.py", 19, False),
-        ("test_elasticsearch_dsl/test_search.py", 15, False),
-        ("elasticsearch_dsl/utils.py", 14, False),
-        ("test_elasticsearch_dsl/test_query.py", 13, False),
-        ("elasticsearch_dsl/search.py", 12, False),
-        ("elasticsearch_dsl/aggs.py", 11, False),
-        ("test_elasticsearch_dsl/test_result.py", 5, False),
-        ("elasticsearch_dsl/result.py", 3, False),
+        ("opensearch_dsl", 40, False),
+        ("test_opensearch_dsl", 35, True),  # selected
+        ("opensearch_dsl/query.py", 19, False),
+        ("test_opensearch_dsl/test_search.py", 15, False),
+        ("opensearch_dsl/utils.py", 14, False),
+        ("test_opensearch_dsl/test_query.py", 13, False),
+        ("opensearch_dsl/search.py", 12, False),
+        ("opensearch_dsl/aggs.py", 11, False),
+        ("test_opensearch_dsl/test_result.py", 5, False),
+        ("opensearch_dsl/result.py", 3, False),
     ] == r.facets.files
 
     assert [

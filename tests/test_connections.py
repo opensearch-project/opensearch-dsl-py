@@ -26,7 +26,7 @@ def test_default_connection_is_returned_by_default():
 
 def test_get_connection_created_connection_if_needed():
     c = connections.Connections()
-    c.configure(default={"hosts": ["es.com"]}, local={"hosts": ["localhost"]})
+    c.configure(default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]})
 
     default = c.get_connection()
     local = c.get_connection("local")
@@ -34,18 +34,20 @@ def test_get_connection_created_connection_if_needed():
     assert isinstance(default, OpenSearch)
     assert isinstance(local, OpenSearch)
 
-    assert [{"host": "es.com"}] == default.transport.hosts
+    assert [{"host": "opensearch.com"}] == default.transport.hosts
     assert [{"host": "localhost"}] == local.transport.hosts
 
 
 def test_configure_preserves_unchanged_connections():
     c = connections.Connections()
 
-    c.configure(default={"hosts": ["es.com"]}, local={"hosts": ["localhost"]})
+    c.configure(default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]})
     default = c.get_connection()
     local = c.get_connection("local")
 
-    c.configure(default={"hosts": ["not-es.com"]}, local={"hosts": ["localhost"]})
+    c.configure(
+        default={"hosts": ["not-opensearch.com"]}, local={"hosts": ["localhost"]}
+    )
     new_default = c.get_connection()
     new_local = c.get_connection("local")
 
@@ -56,7 +58,7 @@ def test_configure_preserves_unchanged_connections():
 def test_remove_connection_removes_both_conn_and_conf():
     c = connections.Connections()
 
-    c.configure(default={"hosts": ["es.com"]}, local={"hosts": ["localhost"]})
+    c.configure(default={"hosts": ["opensearch.com"]}, local={"hosts": ["localhost"]})
     c.add_connection("local2", object())
 
     c.remove_connection("default")
@@ -70,14 +72,14 @@ def test_remove_connection_removes_both_conn_and_conf():
 
 def test_create_connection_constructs_client():
     c = connections.Connections()
-    c.create_connection("testing", hosts=["es.com"])
+    c.create_connection("testing", hosts=["opensearch.com"])
 
     con = c.get_connection("testing")
-    assert [{"host": "es.com"}] == con.transport.hosts
+    assert [{"host": "opensearch.com"}] == con.transport.hosts
 
 
 def test_create_connection_adds_our_serializer():
     c = connections.Connections()
-    c.create_connection("testing", hosts=["es.com"])
+    c.create_connection("testing", hosts=["opensearch.com"])
 
     assert c.get_connection("testing").transport.serializer is serializer.serializer

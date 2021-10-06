@@ -38,7 +38,7 @@ class Commit(Document):
 
 
 def test_filters_aggregation_buckets_are_accessible(data_client):
-    has_tests_query = Q("term", files="test_elasticsearch_dsl")
+    has_tests_query = Q("term", files="test_opensearch_dsl")
     s = Commit.search()[0:0]
     s.aggs.bucket("top_authors", "terms", field="author.name.raw").bucket(
         "has_tests", "filters", filters={"yes": has_tests_query, "no": ~has_tests_query}
@@ -83,7 +83,7 @@ def test_inner_hits_are_wrapped_in_response(data_client):
     commit = response.hits[0]
     assert isinstance(commit.meta.inner_hits.repo, response.__class__)
     assert repr(commit.meta.inner_hits.repo[0]).startswith(
-        "<Hit(git/elasticsearch-dsl-py): "
+        "<Hit(git/opensearch-dsl-py): "
     )
 
 
@@ -92,7 +92,7 @@ def test_scan_respects_doc_types(data_client):
 
     assert 1 == len(repos)
     assert isinstance(repos[0], Repository)
-    assert repos[0].organization == "elasticsearch"
+    assert repos[0].organization == "opensearch"
 
 
 def test_scan_iterates_through_all_docs(data_client):

@@ -201,7 +201,7 @@ def test_update_object_field(write_client):
     Wiki.init()
     w = Wiki(
         owner=User(name="Honza Kral"),
-        _id="elasticsearch-py",
+        _id="opensearch-py",
         ranked={"test1": 0.1, "topic2": 0.2},
     )
     w.save()
@@ -210,7 +210,7 @@ def test_update_object_field(write_client):
     assert w.owner[0].name == "Honza"
     assert w.owner[1].name == "Nick"
 
-    w = Wiki.get(id="elasticsearch-py")
+    w = Wiki.get(id="opensearch-py")
     assert w.owner[0].name == "Honza"
     assert w.owner[1].name == "Nick"
 
@@ -219,36 +219,36 @@ def test_update_object_field(write_client):
 
 def test_update_script(write_client):
     Wiki.init()
-    w = Wiki(owner=User(name="Honza Kral"), _id="elasticsearch-py", views=42)
+    w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
 
     w.update(script="ctx._source.views += params.inc", inc=5)
-    w = Wiki.get(id="elasticsearch-py")
+    w = Wiki.get(id="opensearch-py")
     assert w.views == 47
 
 
 def test_update_retry_on_conflict(write_client):
     Wiki.init()
-    w = Wiki(owner=User(name="Honza Kral"), _id="elasticsearch-py", views=42)
+    w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
 
-    w1 = Wiki.get(id="elasticsearch-py")
-    w2 = Wiki.get(id="elasticsearch-py")
+    w1 = Wiki.get(id="opensearch-py")
+    w2 = Wiki.get(id="opensearch-py")
     w1.update(script="ctx._source.views += params.inc", inc=5, retry_on_conflict=1)
     w2.update(script="ctx._source.views += params.inc", inc=5, retry_on_conflict=1)
 
-    w = Wiki.get(id="elasticsearch-py")
+    w = Wiki.get(id="opensearch-py")
     assert w.views == 52
 
 
 @pytest.mark.parametrize("retry_on_conflict", [None, 0])
 def test_update_conflicting_version(write_client, retry_on_conflict):
     Wiki.init()
-    w = Wiki(owner=User(name="Honza Kral"), _id="elasticsearch-py", views=42)
+    w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     w.save()
 
-    w1 = Wiki.get(id="elasticsearch-py")
-    w2 = Wiki.get(id="elasticsearch-py")
+    w1 = Wiki.get(id="opensearch-py")
+    w2 = Wiki.get(id="opensearch-py")
     w1.update(script="ctx._source.views += params.inc", inc=5)
 
     with raises(ConflictError):
@@ -261,7 +261,7 @@ def test_update_conflicting_version(write_client, retry_on_conflict):
 
 def test_save_and_update_return_doc_meta(write_client):
     Wiki.init()
-    w = Wiki(owner=User(name="Honza Kral"), _id="elasticsearch-py", views=42)
+    w = Wiki(owner=User(name="Honza Kral"), _id="opensearch-py", views=42)
     resp = w.save(return_doc_meta=True)
     assert resp["_index"] == "test-wiki"
     assert resp["result"] == "created"
@@ -301,16 +301,16 @@ def test_init(write_client):
 
 def test_get_raises_404_on_index_missing(data_client):
     with raises(NotFoundError):
-        Repository.get("elasticsearch-dsl-php", index="not-there")
+        Repository.get("opensearch-dsl-php", index="not-there")
 
 
 def test_get_raises_404_on_non_existent_id(data_client):
     with raises(NotFoundError):
-        Repository.get("elasticsearch-dsl-php")
+        Repository.get("opensearch-dsl-php")
 
 
 def test_get_returns_none_if_404_ignored(data_client):
-    assert None is Repository.get("elasticsearch-dsl-php", ignore=404)
+    assert None is Repository.get("opensearch-dsl-php", ignore=404)
 
 
 def test_get_returns_none_if_404_ignored_and_index_doesnt_exist(data_client):
@@ -318,24 +318,24 @@ def test_get_returns_none_if_404_ignored_and_index_doesnt_exist(data_client):
 
 
 def test_get(data_client):
-    elasticsearch_repo = Repository.get("elasticsearch-dsl-py")
+    opensearch_repo = Repository.get("opensearch-dsl-py")
 
-    assert isinstance(elasticsearch_repo, Repository)
-    assert elasticsearch_repo.owner.name == "elasticsearch"
-    assert datetime(2014, 3, 3) == elasticsearch_repo.created_at
+    assert isinstance(opensearch_repo, Repository)
+    assert opensearch_repo.owner.name == "opensearch"
+    assert datetime(2014, 3, 3) == opensearch_repo.created_at
 
 
 def test_exists_return_true(data_client):
-    assert Repository.exists("elasticsearch-dsl-py")
+    assert Repository.exists("opensearch-dsl-py")
 
 
 def test_exists_false(data_client):
-    assert not Repository.exists("elasticsearch-dsl-php")
+    assert not Repository.exists("opensearch-dsl-php")
 
 
 def test_get_with_tz_date(data_client):
     first_commit = Commit.get(
-        id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="elasticsearch-dsl-py"
+        id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-dsl-py"
     )
 
     tzinfo = timezone("Europe/Prague")
@@ -348,7 +348,7 @@ def test_get_with_tz_date(data_client):
 def test_save_with_tz_date(data_client):
     tzinfo = timezone("Europe/Prague")
     first_commit = Commit.get(
-        id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="elasticsearch-dsl-py"
+        id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-dsl-py"
     )
     first_commit.committed_date = tzinfo.localize(
         datetime(2014, 5, 2, 13, 47, 19, 123456)
@@ -356,7 +356,7 @@ def test_save_with_tz_date(data_client):
     first_commit.save()
 
     first_commit = Commit.get(
-        id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="elasticsearch-dsl-py"
+        id="3ca6e1e73a071a705b4babd2f581c91a2a3e5037", routing="opensearch-dsl-py"
     )
     assert (
         tzinfo.localize(datetime(2014, 5, 2, 13, 47, 19, 123456))
@@ -397,65 +397,67 @@ def test_mget_ignores_missing_docs_when_missing_param_is_skip(data_client):
 
 
 def test_update_works_from_search_response(data_client):
-    elasticsearch_repo = Repository.search().execute()[0]
+    opensearch_repo = Repository.search().execute()[0]
 
-    elasticsearch_repo.update(owner={"other_name": "elastic"})
-    assert "elastic" == elasticsearch_repo.owner.other_name
+    opensearch_repo.update(owner={"other_name": "opensearchpy"})
+    assert "opensearchpy" == opensearch_repo.owner.other_name
 
-    new_version = Repository.get("elasticsearch-dsl-py")
-    assert "elastic" == new_version.owner.other_name
-    assert "elasticsearch" == new_version.owner.name
+    new_version = Repository.get("opensearch-dsl-py")
+    assert "opensearchpy" == new_version.owner.other_name
+    assert "opensearch" == new_version.owner.name
 
 
 def test_update(data_client):
-    elasticsearch_repo = Repository.get("elasticsearch-dsl-py")
-    v = elasticsearch_repo.meta.version
+    opensearch_repo = Repository.get("opensearch-dsl-py")
+    v = opensearch_repo.meta.version
 
-    old_seq_no = elasticsearch_repo.meta.seq_no
-    elasticsearch_repo.update(owner={"new_name": "elastic"}, new_field="testing-update")
+    old_seq_no = opensearch_repo.meta.seq_no
+    opensearch_repo.update(
+        owner={"new_name": "opensearchpy"}, new_field="testing-update"
+    )
 
-    assert "elastic" == elasticsearch_repo.owner.new_name
-    assert "testing-update" == elasticsearch_repo.new_field
+    assert "opensearchpy" == opensearch_repo.owner.new_name
+    assert "testing-update" == opensearch_repo.new_field
 
     # assert version has been updated
-    assert elasticsearch_repo.meta.version == v + 1
+    assert opensearch_repo.meta.version == v + 1
 
-    new_version = Repository.get("elasticsearch-dsl-py")
+    new_version = Repository.get("opensearch-dsl-py")
     assert "testing-update" == new_version.new_field
-    assert "elastic" == new_version.owner.new_name
-    assert "elasticsearch" == new_version.owner.name
+    assert "opensearchpy" == new_version.owner.new_name
+    assert "opensearch" == new_version.owner.name
     assert "seq_no" in new_version.meta
     assert new_version.meta.seq_no != old_seq_no
     assert "primary_term" in new_version.meta
 
 
 def test_save_updates_existing_doc(data_client):
-    elasticsearch_repo = Repository.get("elasticsearch-dsl-py")
+    opensearch_repo = Repository.get("opensearch-dsl-py")
 
-    elasticsearch_repo.new_field = "testing-save"
-    old_seq_no = elasticsearch_repo.meta.seq_no
-    assert "updated" == elasticsearch_repo.save()
+    opensearch_repo.new_field = "testing-save"
+    old_seq_no = opensearch_repo.meta.seq_no
+    assert "updated" == opensearch_repo.save()
 
-    new_repo = data_client.get(index="git", id="elasticsearch-dsl-py")
+    new_repo = data_client.get(index="git", id="opensearch-dsl-py")
     assert "testing-save" == new_repo["_source"]["new_field"]
     assert new_repo["_seq_no"] != old_seq_no
-    assert new_repo["_seq_no"] == elasticsearch_repo.meta.seq_no
+    assert new_repo["_seq_no"] == opensearch_repo.meta.seq_no
 
 
 def test_save_automatically_uses_seq_no_and_primary_term(data_client):
-    elasticsearch_repo = Repository.get("elasticsearch-dsl-py")
-    elasticsearch_repo.meta.seq_no += 1
+    opensearch_repo = Repository.get("opensearch-dsl-py")
+    opensearch_repo.meta.seq_no += 1
 
     with raises(ConflictError):
-        elasticsearch_repo.save()
+        opensearch_repo.save()
 
 
 def test_delete_automatically_uses_seq_no_and_primary_term(data_client):
-    elasticsearch_repo = Repository.get("elasticsearch-dsl-py")
-    elasticsearch_repo.meta.seq_no += 1
+    opensearch_repo = Repository.get("opensearch-dsl-py")
+    opensearch_repo.meta.seq_no += 1
 
     with raises(ConflictError):
-        elasticsearch_repo.delete()
+        opensearch_repo.delete()
 
 
 def assert_doc_equals(expected, actual):
@@ -497,21 +499,21 @@ def test_save_without_skip_empty_will_include_empty_fields(write_client):
 def test_delete(write_client):
     write_client.create(
         index="test-document",
-        id="elasticsearch-dsl-py",
+        id="opensearch-dsl-py",
         body={
-            "organization": "elasticsearch",
+            "organization": "opensearch",
             "created_at": "2014-03-03",
-            "owner": {"name": "elasticsearch"},
+            "owner": {"name": "opensearch"},
         },
     )
 
-    test_repo = Repository(meta={"id": "elasticsearch-dsl-py"})
+    test_repo = Repository(meta={"id": "opensearch-dsl-py"})
     test_repo.meta.index = "test-document"
     test_repo.delete()
 
     assert not write_client.exists(
         index="test-document",
-        id="elasticsearch-dsl-py",
+        id="opensearch-dsl-py",
     )
 
 
@@ -522,10 +524,10 @@ def test_search(data_client):
 def test_search_returns_proper_doc_classes(data_client):
     result = Repository.search().execute()
 
-    elasticsearch_repo = result.hits[0]
+    opensearch_repo = result.hits[0]
 
-    assert isinstance(elasticsearch_repo, Repository)
-    assert elasticsearch_repo.owner.name == "elasticsearch"
+    assert isinstance(opensearch_repo, Repository)
+    assert opensearch_repo.owner.name == "opensearch"
 
 
 def test_refresh_mapping(data_client):
