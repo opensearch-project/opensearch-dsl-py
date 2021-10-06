@@ -64,4 +64,4 @@ jobs:
           python3.8 -m pip install nox
       - name: Run Tests
         run: |
-          nox -rs test-${{ matrix.python-version }}
+          nox -rs lint test

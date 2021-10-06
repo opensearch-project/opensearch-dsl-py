@@ -27,4 +27,4 @@ jobs:
       - name: Install Nox
         run: pip install nox
       - name: Integ ${{ matrix.cluster }} secured=${{ matrix.secured }}
-        run: nox -rs test-3.8
+        run: nox -rs lint test
