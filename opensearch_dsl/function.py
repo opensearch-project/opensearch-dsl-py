@@ -35,7 +35,7 @@ def SF(name_or_sf, **params):
         else:
             raise ValueError("SF() got an unexpected fields in the dictionary: %r" % sf)
 
-        # boost factor special case
+        # boost factor special case, see https://github.com/elastic/elasticsearch/issues/6343
         if not isinstance(params, collections_abc.Mapping):
             params = {"value": params}
 
