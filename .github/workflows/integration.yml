@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         cluster: ["opendistro", "opensearch"]
-        secured: ["false"]
+        secured: ["true", "false"]
 
     steps:
       - name: Checkout
@@ -22,9 +22,12 @@ jobs:
           docker system prune --volumes --force
       - name: Launch ${{ matrix.cluster }} cluster
         run: |
+          export SECURE_INTEGRATION=${{ matrix.secured }}
           docker-compose --project-directory .ci/${{ matrix.cluster }} build
           docker-compose --project-directory .ci/${{ matrix.cluster }} up -d
       - name: Install Nox
         run: pip install nox
       - name: Integ ${{ matrix.cluster }} secured=${{ matrix.secured }}
-        run: nox -rs lint test
+        run: |
+          export SECURE_INTEGRATION=${{ matrix.secured }}
+          nox -rs lint test
