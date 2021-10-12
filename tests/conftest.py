@@ -30,6 +30,8 @@ import re
 from datetime import datetime
 
 from mock import Mock
+from opensearchpy import OpenSearch
+from opensearchpy.exceptions import ConnectionError
 from opensearchpy.helpers import bulk
 from pytest import fixture, skip
 
@@ -47,17 +49,27 @@ from .test_integration.test_document import Comment, History, PullRequest, User
 
 @fixture(scope="session")
 def client():
-    os.environ["OPENSEARCH_URL"] = "http://localhost:9200/"
+    opensearch_url = "http://localhost:9200/"
+    kwargs = {}
 
-    # import here because os.environ["OPENSEARCH_URL"] needs to be set before importing
-    # to ensure that it is being used by get_test_client function
-    from opensearchpy.helpers.test import SkipTest, get_test_client
+    # "verify_certs": False will optionally generate a warning message
+    # (see :class:`~opensearchpy.Urllib3HttpConnection` for detailed description of the options)::
+    if (
+        "SECURE_INTEGRATION" in os.environ
+        and os.environ["SECURE_INTEGRATION"] == "true"
+    ):
+        opensearch_url = "https://localhost:9200/"
+        kwargs = {
+            "http_auth": ("admin", "admin"),
+            "verify_certs": False,
+        }
 
     try:
-        connection = get_test_client(nowait="WAIT_FOR_OS" not in os.environ)
-        add_connection("default", connection)
-        return connection
-    except SkipTest:
+        client = OpenSearch(opensearch_url, **kwargs)
+        client.cluster.health(wait_for_status="yellow")
+        add_connection("default", client)
+        return client
+    except ConnectionError:
         skip()
 
 
