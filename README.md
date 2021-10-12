@@ -1,3 +1,8 @@
+[![CI](https://github.com/opensearch-project/opensearch-dsl-py/actions/workflows/ci.yml/badge.svg)](https://github.com/opensearch-project/opensearch-dsl-py/actions/workflows/ci.yml)
+[![Integration](https://github.com/opensearch-project/opensearch-dsl-py/actions/workflows/integration.yml/badge.svg)](https://github.com/opensearch-project/opensearch-dsl-py/actions/workflows/integration.yml)
+[![Chat](https://img.shields.io/badge/chat-on%20forums-blue)](https://discuss.opendistrocommunity.dev/c/clients/)
+![PRs welcome!](https://img.shields.io/badge/PRs-welcome!-success)
+
 ![OpenSearch logo](OpenSearch.svg)
 
 OpenSearch DSL Python Client
