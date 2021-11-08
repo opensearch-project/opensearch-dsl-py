@@ -62,7 +62,7 @@ setup(
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-dsl-py",
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type="text/markdown",
     version=__versionstr__,
     author="Honza Král, Guian Gumpac",
     author_email="honza.kral@gmail.com, guiang@bitquilltech.com",
