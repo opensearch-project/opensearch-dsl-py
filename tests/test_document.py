@@ -28,7 +28,7 @@ import codecs
 import ipaddress
 import pickle
 from datetime import datetime
-from hashlib import md5
+from hashlib import sha256
 
 from pytest import raises
 
@@ -390,7 +390,7 @@ def test_docs_with_properties():
         pwd_hash = field.Text()
 
         def check_password(self, pwd):
-            return md5(pwd).hexdigest() == self.pwd_hash
+            return sha256(pwd).hexdigest() == self.pwd_hash
 
         @property
         def password(self):
@@ -398,9 +398,9 @@ def test_docs_with_properties():
 
         @password.setter
         def password(self, pwd):
-            self.pwd_hash = md5(pwd).hexdigest()
+            self.pwd_hash = sha256(pwd).hexdigest()
 
-    u = User(pwd_hash=md5(b"secret").hexdigest())
+    u = User(pwd_hash=sha256(b"secret").hexdigest())
     assert u.check_password(b"secret")
     assert not u.check_password(b"not-secret")
 
