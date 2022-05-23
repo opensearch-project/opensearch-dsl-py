@@ -44,7 +44,7 @@ from .query import Q
 from .utils import AttrDict, AttrList, DslBase
 from .wrappers import Range
 
-unicode = type("")
+unicode = type(u"")
 
 
 def construct_field(name_or_field, **params):
