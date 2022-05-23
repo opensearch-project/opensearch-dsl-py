@@ -54,7 +54,11 @@ def test(session):
 def format(session):
     session.install("black", "isort")
     session.run(
-        "black", "--target-version=py33", "--target-version=py37", *SOURCE_FILES
+        "black",
+        "--skip-string-normalization",
+        "--target-version=py33",
+        "--target-version=py37",
+        *SOURCE_FILES
     )
     session.run("isort", *SOURCE_FILES)
     session.run("python", "utils/license-headers.py", "fix", *SOURCE_FILES)
@@ -68,6 +72,7 @@ def lint(session):
     session.run(
         "black",
         "--check",
+        "--skip-string-normalization",
         "--target-version=py33",
         "--target-version=py37",
         *SOURCE_FILES
