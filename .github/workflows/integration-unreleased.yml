@@ -1,0 +1,45 @@
+name: Integration with Unreleased OpenSearch
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        entry:
+          - { opensearch_ref: '1.x' }
+          - { opensearch_ref: '2.x' }
+          - { opensearch_ref: '2.0' }
+          - { opensearch_ref: 'main' }
+    steps:
+      - name: Checkout OpenSearch
+        uses: actions/checkout@v2
+        with:
+          repository: opensearch-project/opensearch
+          ref: ${{ matrix.entry.opensearch_ref }}
+          path: opensearch
+
+        # This step builds the docker image tagged as opensearch:test. It will be further used in /ci/run-tests to test against unreleased OpenSearch.
+        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
+      - name: Assemble OpenSearch
+        run: |
+          cd opensearch
+          ./gradlew assemble
+
+      - name: Checkout High Level Python Client
+        uses: actions/checkout@v2
+
+      - name: Install Nox
+        run: pip install nox
+
+      - name: Run integration tests
+        run: |
+          nox -rs lint test
