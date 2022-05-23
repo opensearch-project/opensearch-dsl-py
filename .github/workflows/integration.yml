@@ -9,25 +9,45 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cluster: ["opendistro", "opensearch"]
+        entry:
+          - { cluster: 'opensearch', version: 1.0.0 }
+          - { cluster: 'opensearch', version: 1.0.1 }
+          - { cluster: 'opensearch', version: 1.1.0 }
+          - { cluster: 'opensearch', version: 1.2.0 }
+          - { cluster: 'opensearch', version: 1.2.1 }
+          - { cluster: 'opensearch', version: 1.2.2 }
+          - { cluster: 'opensearch', version: 1.2.3 }
+          - { cluster: 'opensearch', version: 1.2.4 }
+          - { cluster: 'opensearch', version: 1.3.0 }
+          - { cluster: 'opensearch', version: 1.3.1 }
+          - { cluster: 'opendistro', version: 'latest' }
         secured: ["true", "false"]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Clean docker containers
         run: |
           docker volume prune --force
           docker network prune --force
           docker system prune --volumes --force
-      - name: Launch ${{ matrix.cluster }} cluster
+
+      - name: Set the cluster version
+        if: ${{ matrix.entry.cluster == 'opensearch' }}
+        run: |
+          export OPENSEARCH_VERSION=${{ matrix.entry.opensearch_version }}
+
+      - name: Launch ${{ matrix.entry.cluster }} cluster
         run: |
           export SECURE_INTEGRATION=${{ matrix.secured }}
-          docker-compose --project-directory .ci/${{ matrix.cluster }} build
-          docker-compose --project-directory .ci/${{ matrix.cluster }} up -d
+          docker-compose --project-directory .ci/${{ matrix.entry.cluster }} build
+          docker-compose --project-directory .ci/${{ matrix.entry.cluster }} up -d
+
       - name: Install Nox
         run: pip install nox
-      - name: Integ ${{ matrix.cluster }} secured=${{ matrix.secured }}
+
+      - name: Integ ${{ matrix.entry.cluster }} secured=${{ matrix.secured }}
         run: |
           export SECURE_INTEGRATION=${{ matrix.secured }}
           nox -rs lint test
