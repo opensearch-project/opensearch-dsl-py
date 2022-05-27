@@ -33,13 +33,9 @@ jobs:
           docker network prune --force
           docker system prune --volumes --force
 
-      - name: Set the cluster version
-        if: ${{ matrix.entry.cluster == 'opensearch' }}
-        run: |
-          export OPENSEARCH_VERSION=${{ matrix.entry.opensearch_version }}
-
       - name: Launch ${{ matrix.entry.cluster }} cluster
         run: |
+          export OPENSEARCH_VERSION=${{ matrix.entry.version }}
           export SECURE_INTEGRATION=${{ matrix.secured }}
           docker-compose --project-directory .ci/${{ matrix.entry.cluster }} build
           docker-compose --project-directory .ci/${{ matrix.entry.cluster }} up -d

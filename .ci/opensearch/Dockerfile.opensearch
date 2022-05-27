@@ -1,5 +1,5 @@
 ARG OPENSEARCH_VERSION
-FROM opensearchproject/opensearch:$OPENSEARCH_VERSION
+FROM opensearchproject/opensearch:${OPENSEARCH_VERSION}
 
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 
