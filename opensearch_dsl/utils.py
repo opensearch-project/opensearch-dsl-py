@@ -406,11 +406,11 @@ class DslBase(object):
         return {self.name: d}
 
     def _clone(self):
-        c = self.__class__()
+        params = {}
         for attr in self._params:
-            c._params[attr] = copy(self._params[attr])
+            params[attr] = copy(self._params[attr])
+        c = self.__class__(**params)
         return c
-
 
 class HitMeta(AttrDict):
     def __init__(self, document, exclude=("_source", "_fields")):
