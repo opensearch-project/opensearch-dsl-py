@@ -40,7 +40,7 @@ f.close()
 install_requires = [
     "six",
     "python-dateutil",
-    "opensearch-py>=1.0.0",
+    "opensearch-py>=2.0.0",
     # ipaddress is included in stdlib since python 3.3
     'ipaddress; python_version<"3.3"',
 ]
