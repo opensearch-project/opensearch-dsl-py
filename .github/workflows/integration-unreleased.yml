@@ -27,12 +27,17 @@ jobs:
           ref: ${{ matrix.entry.opensearch_ref }}
           path: opensearch
 
-        # This step builds the docker image tagged as opensearch:test. It will be further used in /ci/run-tests to test against unreleased OpenSearch.
-        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
       - name: Assemble OpenSearch
         run: |
           cd opensearch
           ./gradlew assemble
+
+        # This step runs the docker image generated during gradle assemble in OpenSearch. It is tagged as opensearch:test.
+        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
+      - name: Run Docker Image
+        run: |
+          docker run -p 9200:9200 -p 9600:9600 -d -e "discovery.type=single-node" -e "bootstrap.memory_lock=true" opensearch:test
+          sleep 90
 
       - name: Checkout High Level Python Client
         uses: actions/checkout@v2
