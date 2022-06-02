@@ -73,16 +73,6 @@ def test_response_stores_search(dummy_response):
     assert r._search is s
 
 
-def test_attribute_error_in_hits_is_not_hidden(dummy_response):
-    def f(hit):
-        raise AttributeError()
-
-    s = Search().doc_type(employee=f)
-    r = response.Response(s, dummy_response)
-    with raises(TypeError):
-        r.hits
-
-
 def test_interactive_helpers(dummy_response):
     res = response.Response(Search(), dummy_response)
     hits = res.hits
@@ -129,7 +119,6 @@ def test_iterating_over_response_gives_you_hits(dummy_response):
     h = hits[0]
 
     assert "test-index" == h.meta.index
-    assert "company" == h.meta.doc_type
     assert "opensearch" == h.meta.id
     assert 12 == h.meta.score
 
