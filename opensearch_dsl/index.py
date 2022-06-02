@@ -424,17 +424,6 @@ class Index(object):
         """
         return self._get_connection(using).indices.exists(index=self._name, **kwargs)
 
-    def exists_type(self, using=None, **kwargs):
-        """
-        Check if a type/types exists in the index.
-
-        Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.exists_type`` unchanged.
-        """
-        return self._get_connection(using).indices.exists_type(
-            index=self._name, **kwargs
-        )
-
     def put_mapping(self, using=None, **kwargs):
         """
         Register specific mapping definition for a specific type.
@@ -598,18 +587,6 @@ class Index(object):
         ``OpenSearch.indices.get_upgrade`` unchanged.
         """
         return self._get_connection(using).indices.get_upgrade(
-            index=self._name, **kwargs
-        )
-
-    def flush_synced(self, using=None, **kwargs):
-        """
-        Perform a normal flush, then add a generated unique marker (sync_id) to
-        all shards.
-
-        Any additional keyword arguments will be passed to
-        ``OpenSearch.indices.flush_synced`` unchanged.
-        """
-        return self._get_connection(using).indices.flush_synced(
             index=self._name, **kwargs
         )
 

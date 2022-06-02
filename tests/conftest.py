@@ -121,14 +121,12 @@ def dummy_response():
             "hits": [
                 {
                     "_index": "test-index",
-                    "_type": "company",
                     "_id": "opensearch",
                     "_score": 12.0,
                     "_source": {"city": "Amsterdam", "name": "OpenSearch"},
                 },
                 {
                     "_index": "test-index",
-                    "_type": "employee",
                     "_id": "42",
                     "_score": 11.123,
                     "_routing": "opensearch",
@@ -140,7 +138,6 @@ def dummy_response():
                 },
                 {
                     "_index": "test-index",
-                    "_type": "employee",
                     "_id": "47",
                     "_score": 1,
                     "_routing": "opensearch",
@@ -152,7 +149,6 @@ def dummy_response():
                 },
                 {
                     "_index": "test-index",
-                    "_type": "employee",
                     "_id": "53",
                     "_score": 16.0,
                     "_routing": "opensearch",
