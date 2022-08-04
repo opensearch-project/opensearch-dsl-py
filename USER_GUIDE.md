@@ -1,6 +1,7 @@
 - [User Guide](#user-guide)
   - [Setup](#setup)
   - [Sample code](#sample-code)
+  - [AWS Sigv4 Request Signer Sample Code](#aws-sigv4-request-signer-sample-code)
 # User Guide
 
 This user guide specifies how to include and use the dsl-py client in your application.
@@ -98,4 +99,74 @@ from opensearchpy import OpenSearch
 
     print('\nDeleting index:')
     print(response)
+```
+
+## AWS Sigv4 Request Signer Sample Code
+```
+from opensearch_dsl import Search
+from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+import boto3
+import os
+
+# cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
+host = os.getenv('host')
+region = 'us-west-2' # e.g. us-west-1
+credentials = boto3.Session().get_credentials()
+auth = AWSV4SignerAuth(credentials, region)
+
+client = OpenSearch(
+    hosts = [{'host': host, 'port': 443}],
+    http_auth = auth,
+    use_ssl = True,
+    verify_certs = True,
+    connection_class = RequestsHttpConnection
+)
+
+index_name = 'my-dsl-index'
+
+response = client.indices.create(index_name)
+print('\nCreating index:')
+print(response)
+
+# Add a document to the index.
+document = {
+  'title': 'python',
+  'description': 'beta',
+  'category': 'search'
+}
+id = '1'
+
+response = client.index(
+    index = index_name,
+    body = document,
+    id = id,
+    refresh = True
+)
+
+print('\nAdding document:')
+print(response)
+
+# Search for the document.
+s = Search(using=client, index=index_name) \
+    .filter("term", category="search") \
+    .query("match", title="python")
+
+response = s.execute()
+
+print('\nSearch results:')
+for hit in response:
+    print(hit.meta.score, hit.title)
+
+# Delete the document.
+print('\nDeleting document:')
+print(response)
+
+# Delete the index.
+response = client.indices.delete(
+    index = index_name
+)
+
+print('\nDeleting index:')
+print(response)
+
 ```
