@@ -105,13 +105,20 @@ from opensearchpy import OpenSearch
 ```
 from opensearch_dsl import Search
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
+import botocore
 import boto3
 import os
 
 # cluster endpoint, for example: my-test-domain.us-east-1.es.amazonaws.com
 host = os.getenv('host')
 region = 'us-west-2' # e.g. us-west-1
-credentials = boto3.Session().get_credentials()
+
+# create credential from access_key and secret_key
+credentials = botocore.credentials.Credentials(
+    access_key=os.getenv('access_key'),
+    secret_key=os.getenv('secret_key')
+)
+
 auth = AWSV4SignerAuth(credentials, region)
 
 client = OpenSearch(
@@ -168,5 +175,4 @@ response = client.indices.delete(
 
 print('\nDeleting index:')
 print(response)
-
 ```
