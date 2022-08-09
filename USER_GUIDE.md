@@ -1,7 +1,9 @@
 - [User Guide](#user-guide)
   - [Setup](#setup)
-  - [Sample code](#sample-code)
-  - [AWS Sigv4 Request Signer Sample Code](#aws-sigv4-request-signer-sample-code)
+  - [Sample Code](#sample-code)
+    - [Creating an Index](#creating-an-index)
+    - [AWS Sigv4](#aws-sigv4)
+
 # User Guide
 
 This user guide specifies how to include and use the dsl-py client in your application.
@@ -24,7 +26,8 @@ from opensearchpy import OpenSearch
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-dsl-py on GitHub](https://github.com/opensearch-project/opensearch-dsl-py).
 
 
-## Sample code
+## Sample Code
+### Creating an Index
 
 ```python
 from opensearchpy import OpenSearch
@@ -101,7 +104,8 @@ from opensearchpy import OpenSearch
     print(response)
 ```
 
-## AWS Sigv4 Request Signer Sample Code
+### AWS Sigv4
+
 ```
 from opensearch_dsl import Search
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
