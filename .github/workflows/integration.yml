@@ -50,4 +50,4 @@ jobs:
       - name: Integ ${{ matrix.entry.cluster }} secured=${{ matrix.secured }}
         run: |
           export SECURE_INTEGRATION=${{ matrix.secured }}
-          nox -rs lint test
+          nox --no-error-on-missing-interpreter -rs lint test
