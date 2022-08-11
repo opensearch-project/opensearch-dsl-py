@@ -282,32 +282,22 @@ def test_save_and_update_return_doc_meta(write_client):
     resp = w.save(return_doc_meta=True)
     assert resp["_index"] == "test-wiki"
     assert resp["result"] == "created"
-    assert set(resp.keys()) == {
-        "_id",
-        "_index",
-        "_primary_term",
-        "_seq_no",
-        "_shards",
-        "_type",
-        "_version",
-        "result",
-    }
+    assert resp.keys().__contains__("_id")
+    assert resp.keys().__contains__("_primary_term")
+    assert resp.keys().__contains__("_seq_no")
+    assert resp.keys().__contains__("_shards")
+    assert resp.keys().__contains__("_version")
 
     resp = w.update(
         script="ctx._source.views += params.inc", inc=5, return_doc_meta=True
     )
     assert resp["_index"] == "test-wiki"
     assert resp["result"] == "updated"
-    assert set(resp.keys()) == {
-        "_id",
-        "_index",
-        "_primary_term",
-        "_seq_no",
-        "_shards",
-        "_type",
-        "_version",
-        "result",
-    }
+    assert resp.keys().__contains__("_id")
+    assert resp.keys().__contains__("_primary_term")
+    assert resp.keys().__contains__("_seq_no")
+    assert resp.keys().__contains__("_shards")
+    assert resp.keys().__contains__("_version")
 
 
 def test_init(write_client):
