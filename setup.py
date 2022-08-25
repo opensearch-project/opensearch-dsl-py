@@ -51,7 +51,7 @@ develop_requires = [
     "pytest-cov",
     "pytest-mock<3.0.0",
     "pytz",
-    "coverage<5.0.0",
+    "coverage<7.0.0",
     "sphinx",
     "sphinx_rtd_theme",
 ]
