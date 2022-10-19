@@ -18,11 +18,10 @@ This document explains who the maintainers are (see below), what they do in this
 
 ## Current Maintainers
 
-| Maintainer               | GitHub ID                               | Affiliation |
-| ------------------------ | --------------------------------------- | ----------- |
-| Charlene Solonynka       | [csolonynka](https://github.com/csolonynka) | Bit Quill |
-| Yury Fridlyand           | [Yury-Fridlyand](https://github.com/Yury-Fridlyand) | Bit Quill |
-| Guian Gumpac             | [guiangumpac](https://github.com/guiangumpac) | Bit Quill |
+| Maintainer     | GitHub ID                                           | Affiliation |
+| -------------- | --------------------------------------------------- | ----------- |
+| Yury Fridlyand | [Yury-Fridlyand](https://github.com/Yury-Fridlyand) | Bit Quill   |
+| Guian Gumpac   | [GumpacG](https://github.com/GumpacG)               | Bit Quill   |
 
 ## Maintainer Responsibilities
 
