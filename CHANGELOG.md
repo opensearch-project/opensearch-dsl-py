@@ -8,6 +8,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add release workflows ([#84](https://github.com/opensearch-project/opensearch-dsl-py/pull/84))
 - Updated README regarding deprecation ([#100](https://github.com/opensearch-project/opensearch-dsl-py/pull/100))
 ### Changed
+- Updating maintainers and workflows for dependabot changelog ([#82](https://github.com/opensearch-project/opensearch-dsl-py/pull/82))
 
 ### Deprecated
 
