@@ -58,7 +58,7 @@ develop_requires = [
 
 setup(
     name="opensearch-dsl",
-    description="Python client for OpenSearch",
+    description="DSL Python client for OpenSearch",
     license="Apache-2.0",
     url="https://github.com/opensearch-project/opensearch-dsl-py",
     long_description=long_description,

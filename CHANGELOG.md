@@ -4,6 +4,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## [Unreleased]
 ### Added
 - Github workflow for changelog verification ([#81](https://github.com/opensearch-project/opensearch-dsl-py/pull/81))
+- Added auto-generated sphinx docs ([#83](https://github.com/opensearch-project/opensearch-dsl-py/pull/83))
 
 ### Changed
 
