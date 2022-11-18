@@ -31,4 +31,11 @@ Repositories create consistent release labels, such as `v1.0.0`, `v1.1.0` and `v
 
 ## Releasing
 
-The release process is standard across repositories in this org and is run by a release manager volunteering from amongst [MAINTAINERS](MAINTAINERS.md).
+The release process is standard across repositories in this org and is run by a release manager volunteering from amongst [maintainers](MAINTAINERS.md).
+
+1. Create a tag, e.g. v2.1.0, and push it to the GitHub repo.
+1. The [release-drafter.yml](.github/workflows/release-drafter.yml) will be automatically kicked off and a draft release will be created.
+1. This draft release triggers the [jenkins release workflow](https://build.ci.opensearch.org/job/opensearch-dsl-py-release/) as a result of which opensearch-dsl-py client is released on [PyPi](https://pypi.org/project/opensearch-dsl/).
+1. Once the above release workflow is successful, the drafted release on GitHub is published automatically.
+1. Increment "VERSION" in [__init__.py](./opensearch_dsl/__init__.py) and [setup.py](./setup.py) to the next patch release, e.g. v2.1.1. See [example](https://github.com/opensearch-project/opensearch-dsl-py/pull/55).
+
