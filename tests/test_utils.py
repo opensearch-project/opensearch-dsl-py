@@ -109,3 +109,13 @@ def test_recursive_to_dict():
     assert utils.recursive_to_dict({"k": [1, (1.0, {"v": Q("match", key="val")})]}) == {
         "k": [1, (1.0, {"v": {"match": {"key": "val"}}})]
     }
+
+
+def test_attrdict_get():
+    a = utils.AttrDict({"a": {"b": 42, "c": 47}})
+    assert a.get("a", {}).get("b", 0) == 42
+    assert a.get("a", {}).get("e", 0) == 0
+    assert a.get("d", {}) == {}
+    with raises(AttributeError):
+        assert a.get("d")
+    
