@@ -118,4 +118,3 @@ def test_attrdict_get():
     assert a.get("d", {}) == {}
     with raises(AttributeError):
         assert a.get("d")
-    
