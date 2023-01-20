@@ -173,6 +173,14 @@ class AttrDict(object):
                 )
             )
 
+    def get(self, key, default=None):
+        try:
+            return self.__getattr__(key)
+        except AttributeError:
+            if default is not None:
+                return default
+            raise
+
     def __delattr__(self, attr_name):
         try:
             del self._d_[attr_name]
