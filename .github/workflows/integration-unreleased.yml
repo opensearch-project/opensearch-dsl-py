@@ -83,7 +83,7 @@ jobs:
           nox --no-error-on-missing-interpreter -rs lint test
 
       - name: Save server logs
-        if: failed()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: opensearch-logs-${{ matrix.opensearch_ref }}-python-${{ matrix.python-version }}
@@ -166,7 +166,7 @@ jobs:
           nox --no-error-on-missing-interpreter -rs lint test
 
       - name: Save server logs
-        if: failed()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: opensearch-logs-${{ matrix.opensearch_ref }}-python-${{ matrix.python-version }}
