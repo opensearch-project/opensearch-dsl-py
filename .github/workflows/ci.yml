@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -28,9 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -43,9 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: Set up Python 3.7
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.7
       - name: Install build tools
@@ -56,23 +56,32 @@ jobs:
           python3.7 -m build
 
   test-linux:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
 
     strategy:
       fail-fast: false
       matrix:
         python-version: ['2.7', '3.7', '3.8', '3.9', '3.10', '3.11']
+        runner: ['ubuntu-latest']
+        include:
+          - runner: 'ubuntu-20.04'
+            python-version: '3.5'
+          - runner: 'ubuntu-20.04'
+            python-version: '3.6'
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: Setup Python - ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+        env:
+          PIP_NO_PYTHON_VERSION_WARNING: 1
+          PIP_DISABLE_PIP_VERSION_CHECK: 1
       - name: Set up Python 3.8 for Nox
         if: matrix.python-version != '3.8'
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Install nox

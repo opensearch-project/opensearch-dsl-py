@@ -2,49 +2,173 @@ name: Integration with Unreleased OpenSearch
 
 on:
   push:
-    branches:
-      - "main"
   pull_request:
     branches:
       - "main"
 
 jobs:
-  test:
+  test-ubuntu-22:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        entry:
-          - { opensearch_ref: '1.x' }
-          - { opensearch_ref: '2.x' }
-          - { opensearch_ref: '2.0' }
-          - { opensearch_ref: 'main' }
+        opensearch_ref: [ '1.x', '2.x', '2.0', 'main' ]
+        python-version: [ '2.7', '3.7', '3.8', '3.9', '3.10', '3.11' ]
+
     steps:
       - name: Checkout OpenSearch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: opensearch-project/opensearch
-          ref: ${{ matrix.entry.opensearch_ref }}
+          ref: ${{ matrix.opensearch_ref }}
           path: opensearch
 
-      - name: Assemble OpenSearch
-        run: |
-          cd opensearch
-          ./gradlew assemble
+      - name: Get OpenSearch branch top
+        id: get-key
+        working-directory: opensearch
+        run: echo key=`git log -1 --format='%H'` >> $GITHUB_OUTPUT
 
-        # This step runs the docker image generated during gradle assemble in OpenSearch. It is tagged as opensearch:test.
-        # Reference: https://github.com/opensearch-project/OpenSearch/blob/2.0/distribution/docker/build.gradle#L190
-      - name: Run Docker Image
+      - name: Restore cached build
+        id: cache-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: opensearch/distribution/archives/linux-tar/build/distributions
+          key: ${{ steps.get-key.outputs.key }}
+
+      - name: Assemble OpenSearch
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        working-directory: opensearch
+        run: ./gradlew :distribution:archives:linux-tar:assemble
+
+      - name: Save cached build
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: opensearch/distribution/archives/linux-tar/build/distributions
+          key: ${{ steps.get-key.outputs.key }}
+
+      - name: Run OpenSearch
+        working-directory: opensearch/distribution/archives/linux-tar/build/distributions
         run: |
-          docker run -p 9200:9200 -p 9600:9600 -d -e "discovery.type=single-node" -e "bootstrap.memory_lock=true" opensearch:test
-          sleep 90
+          pwd
+          tree
+          tar xf opensearch-min-*
+          ./opensearch-*/bin/opensearch &
+          for attempt in {1..20}; do sleep 5; if curl -s localhost:9200; then echo '=====> ready'; break; fi; echo '=====> waiting...'; done
 
       - name: Checkout High Level Python Client
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          path: dsl-py
 
-      - name: Install Nox
-        run: pip install nox
+      - name: Setup Python - ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+        env:
+          PIP_NO_PYTHON_VERSION_WARNING: 1
+
+      - name: Set up Python 3.8 for Nox
+        if: matrix.python-version != '3.8'
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install nox
+        run: |
+          python3.8 -m pip install nox
 
       - name: Run integration tests
+        working-directory: dsl-py
         run: |
           nox --no-error-on-missing-interpreter -rs lint test
+
+      - name: Save server logs
+        if: failed()
+        uses: actions/upload-artifact@v3
+        with:
+          name: opensearch-logs-${{ matrix.opensearch_ref }}-python-${{ matrix.python-version }}
+          path: |
+            opensearch/distribution/archives/linux-tar/build/distributions/**/logs/*
+
+  test-ubuntu-20:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        opensearch_ref: [ '1.x', '2.x', '2.0', 'main' ]
+        python-version: [ '3.5', '3.6' ]
+
+    steps:
+      - name: Checkout OpenSearch
+        uses: actions/checkout@v3
+        with:
+          repository: opensearch-project/opensearch
+          ref: ${{ matrix.opensearch_ref }}
+          path: opensearch
+
+      - name: Get OpenSearch branch top
+        id: get-key
+        working-directory: opensearch
+        run: echo key=`git log -1 --format='%H'` >> $GITHUB_OUTPUT
+
+      - name: Restore cached build
+        id: cache-restore
+        uses: actions/cache/restore@v3
+        with:
+          path: opensearch/distribution/archives/linux-tar/build/distributions
+          key: ${{ steps.get-key.outputs.key }}
+
+      - name: Assemble OpenSearch
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        working-directory: opensearch
+        run: ./gradlew :distribution:archives:linux-tar:assemble
+
+      - name: Save cached build
+        if: steps.cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: opensearch/distribution/archives/linux-tar/build/distributions
+          key: ${{ steps.get-key.outputs.key }}
+
+      - name: Run OpenSearch
+        working-directory: opensearch/distribution/archives/linux-tar/build/distributions
+        run: |
+          pwd
+          tree
+          tar xf opensearch-min-*
+          ./opensearch-*/bin/opensearch &
+          for attempt in {1..20}; do sleep 5; if curl -s localhost:9200; then echo '=====> ready'; break; fi; echo '=====> waiting...'; done
+
+      - name: Checkout High Level Python Client
+        uses: actions/checkout@v3
+        with:
+          path: dsl-py
+
+      - name: Setup Python - ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+        env:
+          PIP_NO_PYTHON_VERSION_WARNING: 1
+
+      - name: Set up Python 3.8 for Nox
+        if: matrix.python-version != '3.8'
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install nox
+        run: |
+          python3.8 -m pip install nox
+
+      - name: Run integration tests
+        working-directory: dsl-py
+        run: |
+          nox --no-error-on-missing-interpreter -rs lint test
+
+      - name: Save server logs
+        if: failed()
+        uses: actions/upload-artifact@v3
+        with:
+          name: opensearch-logs-${{ matrix.opensearch_ref }}-python-${{ matrix.python-version }}
+          path: |
+            opensearch/distribution/archives/linux-tar/build/distributions/**/logs/*
