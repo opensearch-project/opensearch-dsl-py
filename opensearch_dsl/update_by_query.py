@@ -32,7 +32,6 @@ from .utils import recursive_to_dict
 
 
 class UpdateByQuery(Request):
-
     query = ProxyDescriptor("query")
 
     def __init__(self, **kwargs):
