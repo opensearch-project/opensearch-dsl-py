@@ -13,6 +13,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Removed
 
 ### Fixed
+- Update CI workflow python versions ([#92](https://github.com/opensearch-project/opensearch-dsl-py/pull/92))
 
 ### Security
 
