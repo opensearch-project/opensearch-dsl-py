@@ -5,6 +5,8 @@
 
 ![OpenSearch logo](https://github.com/opensearch-project/opensearch-dsl-py/raw/main/OpenSearch.svg)
 
+![Deprecation message](https://github.com/saimedhi/opensearch-dsl-py/raw/fix/readme/Deprecation.png)
+
 OpenSearch DSL Python Client
 
 - [Welcome!](https://github.com/opensearch-project/opensearch-dsl-py#welcome)
