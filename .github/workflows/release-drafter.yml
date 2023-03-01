@@ -3,7 +3,7 @@ name: Release drafter
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   lint:
@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - id: get_data
+      - id: get_approvers
         run: |
           echo "approvers=$(cat .github/CODEOWNERS | grep @ | tr -d '* ' | sed 's/@/,/g' | sed 's/,//1')" >> $GITHUB_OUTPUT
       - uses: trstringer/manual-approval@v1
         with:
           secret: ${{ github.TOKEN }}
-          approvers: ${{ steps.get_data.outputs.approvers }}
+          approvers: ${{ steps.get_approvers.outputs.approvers }}
           minimum-approvals: 2
           issue-title: 'Release opensearch-dsl-py'
           issue-body: "Please approve or deny the release of opensearch-dsl-py. **Tag**: ${{ github.ref_name }}  **Commit**: ${{ github.sha }}"
