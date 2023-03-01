@@ -29,7 +29,7 @@ from os.path import dirname, join
 
 from setuptools import find_packages, setup
 
-VERSION = (2, 0, 1)
+VERSION = (2, 1, 0)
 __version__ = VERSION
 __versionstr__ = ".".join(map(str, VERSION))
 

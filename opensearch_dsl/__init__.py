@@ -93,7 +93,7 @@ from .update_by_query import UpdateByQuery
 from .utils import AttrDict, AttrList, DslBase
 from .wrappers import Range
 
-VERSION = (2, 0, 1)
+VERSION = (2, 1, 0)
 __version__ = VERSION
 __versionstr__ = ".".join(map(str, VERSION))
 __all__ = [
