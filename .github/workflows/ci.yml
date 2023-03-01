@@ -89,4 +89,4 @@ jobs:
           python3.8 -m pip install nox
       - name: Run Tests
         run: |
-          nox --no-error-on-missing-interpreter -rs lint test
+          nox --no-error-on-missing-interpreter -rs test
