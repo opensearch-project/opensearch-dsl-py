@@ -18,6 +18,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Fixed
 - Update CI workflow python versions ([#92](https://github.com/opensearch-project/opensearch-dsl-py/pull/92))
 - Fix security vulnerability from opensearch-py ([#104](https://github.com/opensearch-project/opensearch-dsl-py/pull/104))
+- Remove unsupported versions from CI. ([#105](https://github.com/opensearch-project/opensearch-dsl-py/pull/105))
 
 ### Security
 

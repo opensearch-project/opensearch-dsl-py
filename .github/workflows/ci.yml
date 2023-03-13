@@ -61,13 +61,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['2.7', '3.7', '3.8', '3.9', '3.10', '3.11']
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
         runner: ['ubuntu-latest']
-        include:
-          - runner: 'ubuntu-20.04'
-            python-version: '3.5'
-          - runner: 'ubuntu-20.04'
-            python-version: '3.6'
 
     steps:
       - name: Checkout Repository
