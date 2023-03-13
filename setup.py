@@ -29,7 +29,7 @@ from os.path import dirname, join
 
 from setuptools import find_packages, setup
 
-VERSION = (2, 0, 1)
+VERSION = (2, 1, 0)
 __version__ = VERSION
 __versionstr__ = ".".join(map(str, VERSION))
 
@@ -40,7 +40,7 @@ f.close()
 install_requires = [
     "six",
     "python-dateutil",
-    "opensearch-py>=2.0.0",
+    "opensearch-py>=2.2.0",
     # ipaddress is included in stdlib since python 3.3
     'ipaddress; python_version<"3.3"',
 ]

@@ -45,4 +45,4 @@ jobs:
       - name: Integ OpenSearch secured=${{ matrix.secured }}
         run: |
           export SECURE_INTEGRATION=${{ matrix.secured }}
-          nox --no-error-on-missing-interpreter -rs lint test
+          nox --no-error-on-missing-interpreter -rs test

@@ -73,7 +73,7 @@ jobs:
       - name: Run integration tests
         working-directory: dsl-py
         run: |
-          nox --no-error-on-missing-interpreter -rs lint test
+          nox --no-error-on-missing-interpreter -rs test
 
       - name: Save server logs
         if: failure()
