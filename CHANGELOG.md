@@ -10,6 +10,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - Update maintainers and workflows for dependabot changelog ([#82](https://github.com/opensearch-project/opensearch-dsl-py/pull/82))
+-  Update jenkins file to use updated docker image ([#108](https://github.com/opensearch-project/opensearch-dsl-py/pull/108)) 
 
 ### Deprecated
 
