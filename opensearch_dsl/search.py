@@ -387,7 +387,7 @@ class Search(Request):
             return s
 
     @classmethod
-    def from_dict(cls, d):
+    def from_dict(cls, d, **kwargs):
         """
         Construct a new `Search` instance from a raw dict containing the search
         body. Useful when migrating from raw dictionaries.
@@ -404,7 +404,7 @@ class Search(Request):
             })
             s = s.filter('term', published=True)
         """
-        s = cls()
+        s = cls(**kwargs)   # params same as __init__(**kwargs)
         s.update_from_dict(d)
         return s
 

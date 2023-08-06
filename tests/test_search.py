@@ -399,14 +399,15 @@ def test_reverse():
         "script_fields": {"more_attendees": {"script": "doc['attendees'].value + 42"}},
     }
 
+    o = object
     d2 = deepcopy(d)
-
-    s = search.Search.from_dict(d)
+    s = search.Search.from_dict(d, using=o)
 
     # make sure we haven't modified anything in place
     assert d == d2
     assert {"size": 5} == s._extra
     assert d == s.to_dict()
+    assert s._using is o
 
 
 def test_from_dict_doesnt_need_query():
