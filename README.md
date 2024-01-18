@@ -7,7 +7,7 @@
 
 > **Warning**
 > 
->The OpenSearch high-level Python client (opensearch-dsl-py) will be deprecated after version 2.1.0. We recommend switching to the OpenSearch Python client ([opensearch-py](https://github.com/opensearch-project/opensearch-py)), which now includes the functionality of opensearch-dsl-py.
+>The OpenSearch high-level Python client (opensearch-dsl-py) is now archived. We recommend switching to the OpenSearch Python client ([opensearch-py](https://github.com/opensearch-project/opensearch-py)), which now includes the functionality of opensearch-dsl-py.
 
 OpenSearch DSL Python Client
 

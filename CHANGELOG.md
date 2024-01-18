@@ -7,6 +7,7 @@ Inspired from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Add AttrDict .get(...) method ([#90](https://github.com/opensearch-project/opensearch-dsl-py/pull/90))
 - Add release workflows ([#84](https://github.com/opensearch-project/opensearch-dsl-py/pull/84))
 - Update README regarding deprecation ([#100](https://github.com/opensearch-project/opensearch-dsl-py/pull/100))
+- Update README regarding archiving opensearch-dsl-py ([#113](https://github.com/opensearch-project/opensearch-dsl-py/pull/113))
 
 ### Changed
 - Update maintainers and workflows for dependabot changelog ([#82](https://github.com/opensearch-project/opensearch-dsl-py/pull/82))
